@@ -8,8 +8,6 @@ DROP TABLE Odkrywca;
 DROP TABLE Okaz;
 DROP TABLE Stanowisko;
 DROP TABLE Klad;
-DROP TABLE Nisza;
-DROP TABLE Ranga;
 DROP TABLE Kolekcja;
 DROP TABLE Osoba;
 DROP TABLE Uczelnia;

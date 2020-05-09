@@ -1,3 +1,6 @@
+--ON UPDATE CASCADE s¹ niepotrzebne poniewa¿ kluczami s¹ automatycznie generowane indeksy.
+--W zwi¹zkach wiele-wiele zapewniê 'conalmniej jeden' tam gdzie jest potrzebne na poziomie aplikacji.
+
 CREATE TABLE Adres(
 	id INTEGER IDENTITY(0, 1) PRIMARY KEY,
 	nr_budynku INTEGER NOT NULL CHECK(nr_budynku > 0),
@@ -12,7 +15,7 @@ ADD CONSTRAINT niepotarzalny_adres UNIQUE(nr_budynku, ulica, miasto, kraj);
 CREATE TABLE Uczelnia(
 	id INTEGER IDENTITY(0, 1) PRIMARY KEY,
 	nazwa VARCHAR(100) UNIQUE NOT NULL,
-	id_adres INTEGER REFERENCES Adres(id) ON UPDATE CASCADE UNIQUE NOT NULL
+	id_adres INTEGER REFERENCES Adres(id) UNIQUE NOT NULL
 );
 
 CREATE TABLE Osoba(
@@ -22,7 +25,7 @@ CREATE TABLE Osoba(
 	data_urodzenia DATE CHECK(data_urodzenia < GETDATE()) NOT NULL,
 	data_smierci DATE,
 	stopien_naukowy CHAR(3) CHECK(stopien_naukowy IN ('mgr', 'drr', 'drh', 'pro')),
-	id_uczelnia INTEGER REFERENCES Uczelnia(id) ON UPDATE CASCADE
+	id_uczelnia INTEGER REFERENCES Uczelnia(id)
 );
 
 ALTER TABLE Osoba
@@ -31,33 +34,47 @@ ADD CONSTRAINT sensowan_smierc CHECK(data_smierci > data_urodzenia AND data_smie
 CREATE TABLE Kolekcja(
 	id INTEGER IDENTITY(0, 1) PRIMARY KEY,
 	nazwa VARCHAR(100) UNIQUE NOT NULL,
-	id_adres INTEGER REFERENCES Adres(id) ON UPDATE CASCADE UNIQUE NOT NULL
-);
-
-CREATE TABLE Ranga(
-	id INTEGER IDENTITY(0, 1) PRIMARY KEY,
-	nazwa VARCHAR(30) UNIQUE NOT NULL,
-	opis TEXT
-);
-
-CREATE TABLE Nisza(
-	id INTEGER IDENTITY(0, 1) PRIMARY KEY,
-	nazwa VARCHAR(30) UNIQUE NOT NULL,
-	opis TEXT
+	id_adres INTEGER REFERENCES Adres(id) UNIQUE NOT NULL
 );
 
 CREATE TABLE Klad(
 	id INTEGER IDENTITY(0, 1) PRIMARY KEY,
 	nazwa VARCHAR(30),
 	opis TEXT,
-	id_ranga INTEGER REFERENCES Ranga(id) ON UPDATE CASCADE,
-	id_nisza INTEGER REFERENCES Nisza(id) ON UPDATE CASCADE,
-	id_nadklad INTEGER REFERENCES Klad(id) ON UPDATE NO ACTION
+	ranga VARCHAR(30),
+	nisza VARCHAR(30),
+	id_nadklad INTEGER REFERENCES Klad(id)
 );
+
+ALTER TABLE Klad
+ADD CONSTRAINT odpowiednia_ranga
+	CHECK(ranga IN (
+		'Gatunek',
+		'Rodzaj',
+		'Rodzina',
+		'Rz¹d',
+		'Gromada',
+		'Typ',
+		'Królestwo',
+		'Domena',
+		'Drzewo ¯ycia'));
+
+ALTER TABLE Klad
+ADD CONSTRAINT odpowiednia_nisza
+	CHECK(nisza IN (
+		'Producent',
+		'Reducent',
+		'Padlino¿erca',
+		'Owado¿erca',
+		'Drapie¿nik',
+		'Roœlino¿erca'));
+
+ALTER TABLE Klad
+ADD CONSTRAINT nisza_dla_gatunku CHECK(nisza IS NULL OR ranga = 'Gatunek');
 
 CREATE TABLE Stanowisko(
 	id INTEGER IDENTITY(0, 1) PRIMARY KEY,
-	nazwa VARCHAR(30) UNIQUE NOT NULL,
+	nazwa VARCHAR(100) UNIQUE NOT NULL,
 	okres VARCHAR(30),
 	opis TEXT
 );
@@ -66,14 +83,17 @@ CREATE TABLE Okaz(
 	id INTEGER IDENTITY(0, 1) PRIMARY KEY,
 	identyfikator VARCHAR(30) UNIQUE NOT NULL,
 	pseudonim VARCHAR(30),
-	gatunek INTEGER REFERENCES Klad(id) ON UPDATE CASCADE NOT NULL,
-	id_stanowisko INTEGER REFERENCES Stanowisko(id) ON UPDATE CASCADE
+	data_odkrycia DATE,
+	opis TEXT,
+	id_klad INTEGER REFERENCES Klad(id) NOT NULL,
+	id_kolekcja INTEGER REFERENCES Kolekcja(id),
+	id_stanowisko INTEGER REFERENCES Stanowisko(id)
 );
 
 CREATE TABLE Odkrywca(
 	id INTEGER IDENTITY(0, 1) PRIMARY KEY,
-	id_osoba INTEGER REFERENCES Osoba(id) ON UPDATE CASCADE ON DELETE CASCADE NOT NULL,
-	id_okaz INTEGER REFERENCES Okaz(id) ON UPDATE CASCADE ON DELETE CASCADE NOT NULL
+	id_osoba INTEGER REFERENCES Osoba(id) ON DELETE CASCADE NOT NULL,
+	id_okaz INTEGER REFERENCES Okaz(id) ON DELETE CASCADE NOT NULL
 );
 
 CREATE TABLE Datowanie(
@@ -81,7 +101,7 @@ CREATE TABLE Datowanie(
 	data_wykonania DATE CHECK(data_wykonania <= GETDATE())NOT NULL,
 	technika VARCHAR(30) NOT NULL,
 	wiek INTEGER CHECK(wiek > 0) NOT NULL,
-	id_okaz INTEGER REFERENCES Okaz(id) ON UPDATE CASCADE ON DELETE CASCADE NOT NULL
+	id_okaz INTEGER REFERENCES Okaz(id) ON DELETE CASCADE NOT NULL
 );
 
 CREATE TABLE Czasopismo(
@@ -95,7 +115,7 @@ CREATE TABLE Numer(
 	id INTEGER IDENTITY(0, 1) PRIMARY KEY,
 	numer INTEGER NOT NULL,
 	data_wydania DATE CHECK(data_wydania <= GETDATE()) NOT NULL,
-	id_czasopismo INTEGER REFERENCES Czasopismo(id) ON UPDATE CASCADE ON DELETE CASCADE NOT NULL
+	id_czasopismo INTEGER REFERENCES Czasopismo(id) ON DELETE CASCADE NOT NULL
 );
 
 ALTER TABLE Numer
@@ -105,7 +125,7 @@ CREATE TABLE Artykul(
 	id INTEGER IDENTITY(0, 1) PRIMARY KEY,
 	tytul VARCHAR(100) NOT NULL,
 	opis TEXT,
-	id_numer INTEGER REFERENCES Numer(id) ON UPDATE CASCADE ON DELETE CASCADE NOT NULL
+	id_numer INTEGER REFERENCES Numer(id) ON DELETE CASCADE NOT NULL
 );
 
 ALTER TABLE Artykul
@@ -113,12 +133,12 @@ ADD CONSTRAINT niepowtarzalny_artykul UNIQUE(tytul, id_numer);
 
 CREATE TABLE Autor(
 	id INTEGER IDENTITY(0, 1) PRIMARY KEY,
-	id_osoba INTEGER REFERENCES Osoba(id) ON UPDATE CASCADE ON DELETE CASCADE  NOT NULL,
-	id_artykul INTEGER REFERENCES Artykul(id) ON UPDATE CASCADE ON DELETE CASCADE  NOT NULL
+	id_osoba INTEGER REFERENCES Osoba(id) ON DELETE CASCADE  NOT NULL,
+	id_artykul INTEGER REFERENCES Artykul(id) ON DELETE CASCADE  NOT NULL
 );
 
 CREATE TABLE Wspomina(
 	id INTEGER IDENTITY(0, 1) PRIMARY KEY,
-	id_artykul INTEGER REFERENCES Artykul(id) ON UPDATE CASCADE ON DELETE CASCADE  NOT NULL,
-	id_okaz INTEGER REFERENCES Okaz(id) ON UPDATE CASCADE ON DELETE CASCADE  NOT NULL
+	id_artykul INTEGER REFERENCES Artykul(id) ON DELETE CASCADE  NOT NULL,
+	id_okaz INTEGER REFERENCES Okaz(id) ON DELETE CASCADE  NOT NULL
 );
