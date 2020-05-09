@@ -1,0 +1,16 @@
+DROP TABLE Wspomina;
+DROP TABLE Autor;
+DROP TABLE Artykul;
+DROP TABLE Numer;
+DROP TABLE Czasopismo;
+DROP TABLE Datowanie;
+DROP TABLE Odkrywca;
+DROP TABLE Okaz;
+DROP TABLE Stanowisko;
+DROP TABLE Klad;
+DROP TABLE Nisza;
+DROP TABLE Ranga;
+DROP TABLE Kolekcja;
+DROP TABLE Osoba;
+DROP TABLE Uczelnia;
+DROP TABLE Adres;
