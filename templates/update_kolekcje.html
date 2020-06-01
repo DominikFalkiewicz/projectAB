@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Skamieniałości - Kolekcje - Update</title>
+</head>
+<body>
+    <form action="" method="POST">
+        <label for="nazwa">Nazwa:</label>
+        <input type="text" name="nazwa" id="nazwa" size="100" value="{{ stara_nazwa }}"/>
+        <label for="adresy_wybor">Adres:</label>
+        <select name="adresy_wybor" id="adresy_wybor">
+            <option selected="selected" name="wybrany_adres" value="{{ stary_adres[0] }}">{{ stary_adres[1] }}</option>
+            {% for row in adresy %}
+                <option name="wybrany_adres" value="{{ row[0] }}">{{ row[1] }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit" name="button" value="zatwierdz">Zatwierdź</button>
+    </form>
+</body>
+</html>

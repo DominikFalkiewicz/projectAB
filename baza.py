@@ -9,7 +9,7 @@ class Baza:
 
     def drop(self):
         con = sqlite3.connect(self.path)
-        with open("baza_danych/drop.sql") as drop_file:
+        with open("baza_danych/drop.sql", "r", encoding="utf-8") as drop_file:
             drop = drop_file.read().split(";")
         for d in drop:
             con.execute(d)
@@ -18,7 +18,7 @@ class Baza:
 
     def create(self):
         con = sqlite3.connect(self.path)
-        with open("baza_danych/create.sql") as create_file:
+        with open("baza_danych/create.sql", "r", encoding="utf-8") as create_file:
             create = create_file.read().split(";")
         for c in create:
             con.execute(c)
@@ -27,7 +27,7 @@ class Baza:
 
     def insert(self):
         con = sqlite3.connect(self.path)
-        with open("baza_danych/insert.sql") as insert_file:
+        with open("baza_danych/insert.sql", "r", encoding="utf-8") as insert_file:
             insert = insert_file.read().split(";")
         for i in insert:
             con.execute(i)

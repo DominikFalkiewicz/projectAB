@@ -1,6 +1,3 @@
---ON UPDATE CASCADE s� niepotrzebne poniewa� kluczami s� automatycznie generowane indeksy.
---W zwi�zkach wiele-wiele zapewni� 'conalmniej jeden' tam gdzie jest potrzebne na poziomie aplikacji.
-
 CREATE TABLE Adres(
 	id INTEGER PRIMARY KEY,
 	nr_budynku INTEGER CHECK(nr_budynku > 0) NOT NULL,
@@ -40,9 +37,9 @@ CREATE TABLE Klad(
 	ranga VARCHAR(30),
 	nisza VARCHAR(30),
 	id_nadklad INTEGER REFERENCES Klad(id),
-	CHECK(ranga IN (NULL, 'Gatunek', 'Rodzaj', 'Rodzina', 'Rz�d', 'Gromada', 'Typ', 'Kr�lestwo', 'Domena',
-	'Drzewo �ycia')),
-	CHECK(nisza IN (NULL, 'Producent', 'Reducent', 'Padlino�erca', 'Owado�erca', 'Drapie�nik', 'Ro�lino�erca')),
+	CHECK(ranga IN (NULL, 'Gatunek', 'Rodzaj', 'Rodzina', 'Rząd', 'Gromada', 'Typ', 'Królestwo', 'Domena',
+	'Drzewo Życia')),
+	CHECK(nisza IN (NULL, 'Producent', 'Reducent', 'Padlinożerca', 'Owadożerca', 'Drapieżnik', 'Roślinożerca')),
 	CHECK(nisza IS NULL OR ranga = 'Gatunek')
 );
 

@@ -41,7 +41,8 @@ stanowiska_handler = Stanowiska(baza, path_stanowiska)
 kolekcje_handler = Kolekcje(baza, path_kolekcje)
 
 app = Flask(__name__)
-
+app.secret_key = '1234567890'
+app.config['SESSION_TYPE'] = 'filesystem'
 
 @app.route('/')
 def menu():
@@ -86,6 +87,11 @@ def czasopisma():
 @app.route('/kolekcje', methods=['GET', 'POST'])
 def kolekcje():
     return kolekcje_handler.render()
+
+
+@app.route('/kolekcje/update', methods=['GET', 'POST'])
+def update_kolekcje():
+    return kolekcje_handler.render_update()
 
 
 @app.route('/stanowiska')

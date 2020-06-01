@@ -1,91 +1,91 @@
 INSERT INTO Adres(nr_budynku, ulica, miasto, kraj)
 VALUES
-	(1, 'Fio≥kowa', 'Wa≥brzych', 'Polska'),
+	(1, 'Fio≈Çkowa', 'Wa≈Çbrzych', 'Polska'),
 	(14, 'Rossenstrasse', 'Berlin', 'Niemcy'),
 	(37, 'Independence streat', 'Nowy Jork', 'USA'),
-	(12, 'Marsza≥kowska', 'Warszawa', 'Polska'),
+	(12, 'Marsza≈Çkowska', 'Warszawa', 'Polska'),
 	(82, 'Seals streat', 'Shefield', 'Wielka Brytania'),
-	(47, 'Warszawska', 'KrakÛw', 'Polska'),
+	(47, 'Warszawska', 'Krak√≥w', 'Polska'),
 	(6, 'Krakowska', 'Warszawa', 'Polska'),
-	(4, 'Bydgoska', 'GdaÒsk', 'Polska'),
+	(4, 'Bydgoska', 'Gda≈Ñsk', 'Polska'),
 	(35, 'Ho Chi Minh', 'Ho Chi Minh', 'Wietnam'),
-	(64, 'ØÛ≥kiewskiego', 'ZamoúÊ', 'Polska');
+	(64, '≈ª√≥≈Çkiewskiego', 'Zamo≈õƒá', 'Polska');
 
 INSERT INTO Uczelnia(nazwa, id_adres)
 VALUES
-	('Uniwersytet Zamoyski', 9),
-	('Uniwersytet Ho Chi Minha w Ho Chi Minh', 8),
-	('Brytyjska Akademia GÛrniczo-Morska', 4),
-	('Wyøsza Szko≥a Paleontologiczna', 0),
-	('Warszawska Akademia Krakowska', 6),
-	('Krakowska Akademia Warszawska', 5);
+	('Uniwersytet Zamoyski', 10),
+	('Uniwersytet Ho Chi Minha w Ho Chi Minh', 9),
+	('Brytyjska Akademia G√≥rniczo-Morska', 5),
+	('Wy≈ºsza Szko≈Ça Paleontologiczna', 1),
+	('Warszawska Akademia Krakowska', 7),
+	('Krakowska Akademia Warszawska', 6);
 
 INSERT INTO Osoba(imie, nazwisko, data_urodzenia, data_smierci, stopien_naukowy, id_uczelnia)
 VALUES
 	('Jacek', 'Placek', '2001-01-29', NULL, NULL, NULL),
-	('W≥adys≥aw', 'Pechowiec', '1988-03-10', '2019-11-14', 'drr', 0),
-	('Stanis≥aw', 'Szczeøuja', '1914-05-23', '1985-07-04', 'pro', 0),
-	('Dobrmi≥a', 'Winnicka', '1997-06-18', NULL, 'mgr', 5),
-	('Thren', 'Hao Ma', '1967-02-02', NULL, 'drh', 1),
-	('John', 'Brown', '1945-04-13', '1999-12-20', 'drr', 2),
-	('Alexander', 'Helmborn', '1975-10-04', NULL, 'drr', 2),
+	('W≈Çadys≈Çaw', 'Pechowiec', '1988-03-10', '2019-11-14', 'drr', 1),
+	('Stanis≈Çaw', 'Szcze≈ºuja', '1914-05-23', '1985-07-04', 'pro', 1),
+	('Dobrmi≈Ça', 'Winnicka', '1997-06-18', NULL, 'mgr', 6),
+	('Thren', 'Hao Ma', '1967-02-02', NULL, 'drh', 2),
+	('John', 'Brown', '1945-04-13', '1999-12-20', 'drr', 3),
+	('Alexander', 'Helmborn', '1975-10-04', NULL, 'drr', 3),
 	('Hugo', 'Shwartzhafen', '1980-09-25', NULL, 'drh', NULL),
 	('Jerzy', 'Koniecpolski', '1978-02-11', NULL, 'drr', NULL),
-	('Xi', 'Xiao Min', '1967-02-18', NULL, 'pro', 4);
+	('Xi', 'Xiao Min', '1967-02-18', NULL, 'pro', 5);
 
 INSERT INTO Kolekcja(nazwa, id_adres)
 VALUES
-	('Kolekcja Skamienia≥oúci Uniwerystetu Zamoyskiego', 9),
-	('Zbiory Johna Thuma', 2),
-	('BerliÒskie Muzeum Paleontologiczne', 1),
-	('Muzeum Historii Naturalnej w GdaÒsku', 7),
-	('Warszawskie Muzeum Paleontologiczne', 3),
-	('Kolekcja Skamienia≥oúci OrganizmÛw Morskich Brytyjskiej Akademii GÛrniczo-Morskiej', 4);
+	('Kolekcja Skamienia≈Ço≈õci Uniwerystetu Zamoyskiego', 10),
+	('Zbiory Johna Thuma', 3),
+	('Berli≈Ñskie Muzeum Paleontologiczne', 2),
+	('Muzeum Historii Naturalnej w Gda≈Ñsku', 8),
+	('Warszawskie Muzeum Paleontologiczne', 4),
+	('Kolekcja Skamienia≈Ço≈õci Organizm√≥w Morskich Brytyjskiej Akademii G√≥rniczo-Morskiej', 5);
 
 INSERT INTO Klad(nazwa, opis, ranga, nisza, id_nadklad)
 VALUES
-	('ziemskie øycie', 'Jedyne znane drzewo øycia.', 'Drzewo Øycia', NULL, NULL),
-	('potomkowie LUCA', 'Wszystkie obecnie øyjπce organizmy.', NULL, NULL, 0),
-	('bakterie', NULL, 'Domena', NULL, 1),
-	('archonty', NULL, 'Domena', NULL, 1),
-	('eukarionty', NULL, 'Domena', NULL, 3),
-	('zwierzÍta', NULL, 'KrÛlestwo', NULL, 4),
-	('roúliny', NULL, 'KrÛlestwo', NULL, 4),
-	('grzyby', NULL, 'KrÛlestwo', NULL, 4),
-	('Prototaxitaceae', NULL, 'Rodzina', NULL, 7),
-	('Prototaxites', NULL, 'Rodzaj', NULL, 8),
-	('wtÛrouste', NULL, NULL, NULL, 5),
-	('szkar≥upnie', NULL, 'Typ', NULL, 10),
-	('strunowce', NULL, 'Typ', NULL, 10),
-	('krÍgowce', NULL, NULL, NULL, 12),
-	('czworonogi', NULL, NULL, NULL, 13),
-	('owodniowce', NULL, NULL, NULL, 14),
-	('synapsydy', NULL, 'Gromada', NULL, 15),
-	('pelycosauria', NULL, 'Rzπd', NULL, 16),
-	('Cotylorchynchus', NULL, 'Rodzaj', NULL, 17),
-	('Cotylorchynchus romeri', NULL, 'Gatunek', 'Roúlinoøerca', 18),
-	('Cotylorchynchus hancocki', NULL, 'Gatunek', 'Roúlinoøerca', 18),
-	('Cotylorchynchus bransoni', NULL, 'Gatunek', 'Roúlinoøerca', 18);
+	('ziemskie ≈ºycie', 'Jedyne znane drzewo ≈ºycia.', 'Drzewo ≈ªycia', NULL, NULL),
+	('potomkowie LUCA', 'Wszystkie obecnie ≈ºyjƒÖce organizmy.', NULL, NULL, 1),
+	('bakterie', NULL, 'Domena', NULL, 2),
+	('archonty', NULL, 'Domena', NULL, 2),
+	('eukarionty', NULL, 'Domena', NULL, 4),
+	('zwierzƒôta', NULL, 'Kr√≥lestwo', NULL, 5),
+	('ro≈õliny', NULL, 'Kr√≥lestwo', NULL, 5),
+	('grzyby', NULL, 'Kr√≥lestwo', NULL, 5),
+	('Prototaxitaceae', NULL, 'Rodzina', NULL, 8),
+	('Prototaxites', NULL, 'Rodzaj', NULL, 9),
+	('wt√≥rouste', NULL, NULL, NULL, 6),
+	('szkar≈Çupnie', NULL, 'Typ', NULL, 11),
+	('strunowce', NULL, 'Typ', NULL, 11),
+	('krƒôgowce', NULL, NULL, NULL, 13),
+	('czworonogi', NULL, NULL, NULL, 14),
+	('owodniowce', NULL, NULL, NULL, 15),
+	('synapsydy', NULL, 'Gromada', NULL, 16),
+	('pelycosauria', NULL, 'RzƒÖd', NULL, 17),
+	('Cotylorchynchus', NULL, 'Rodzaj', NULL, 18),
+	('Cotylorchynchus romeri', NULL, 'Gatunek', 'Ro≈õlino≈ºerca', 19),
+	('Cotylorchynchus hancocki', NULL, 'Gatunek', 'Ro≈õlino≈ºerca', 19),
+	('Cotylorchynchus bransoni', NULL, 'Gatunek', 'Ro≈õlino≈ºerca', 19);
 
 INSERT INTO Stanowisko(nazwa, okres, opis)
 VALUES
-	('OsÛwisko skalne w Chrzπszczyøewπszycach', 'Perm', 'biedny doktor Pechowiec...'),
-	('Plac budowy centrum handlowego w P≥ocku', 'Perm', 'nic specjalnego');
+	('Os√≥wisko skalne w ChrzƒÖszczy≈ºewƒÖszycach', 'Perm', 'biedny doktor Pechowiec...'),
+	('Plac budowy centrum handlowego w P≈Çocku', 'Perm', 'nic specjalnego');
 
 INSERT INTO Okaz(identyfikator, pseudonim, data_odkrycia, opis, id_klad, id_kolekcja, id_stanowisko)
 VALUES
-	('dsnfejfq12', 'Lary', NULL, NULL, 19, 0, 0),
-	('dsnfejfq13', NULL, NULL, NULL, 19, 0, 0),
-	('dsnfejfq14', NULL, NULL, NULL, 20, 0, 0),
-	('dsnfejfq15', NULL, NULL, NULL, 20, 1, 0),
-	('dsnfejfq16', NULL, NULL, NULL, 20, 2, 0),
-	('dsnfejfq17', NULL, NULL, NULL, 21, 3, 0);
+	('dsnfejfq12', 'Lary', NULL, NULL, 20, 1, 1),
+	('dsnfejfq13', NULL, NULL, NULL, 20, 1, 1),
+	('dsnfejfq14', NULL, NULL, NULL, 21, 1, 1),
+	('dsnfejfq15', NULL, NULL, NULL, 21, 2, 1),
+	('dsnfejfq16', NULL, NULL, NULL, 21, 3, 1),
+	('dsnfejfq17', NULL, NULL, NULL, 22, 4, 1);
 
 INSERT INTO Datowanie(data_wykonania, technika, wiek, id_okaz)
 VALUES
-	('2019-12-20', 'Argon', 275000000, 1),
-	('2012-11-23', 'Argon', 274000000, 1),
-	('2000-05-02', 'Argon', 273000000, 5);
+	('2019-12-20', 'Argon', 275000000, 2),
+	('2012-11-23', 'Argon', 274000000, 2),
+	('2000-05-02', 'Argon', 273000000, 6);
 
 INSERT INTO Czasopismo(tytul, kraj, opis)
 VALUES
@@ -94,30 +94,30 @@ VALUES
 
 INSERT INTO Numer(numer, data_wydania, id_czasopismo)
 VALUES
-	(1, '2001-11-04', 0),
-	(2, '2008-12-09', 0),
-	(1, '2020-03-15', 1);
+	(1, '2001-11-04', 1),
+	(2, '2008-12-09', 1),
+	(1, '2020-03-15', 2);
 
 INSERT INTO Artykul(tytul, opis, id_numer)
 VALUES
-	('åmierÊ pechowego doktora ujawnia skamielinÍ.', NULL, 0),
-	('Cotylorhynchusy sπ fajne.', NULL, 0),
-	('I like to swim and mine.', NULL, 2);
+	('≈ömierƒá pechowego doktora ujawnia skamielinƒô.', NULL, 1),
+	('Cotylorhynchusy sƒÖ fajne.', NULL, 1),
+	('I like to swim and mine.', NULL, 3);
 
 INSERT INTO Autor(id_osoba, id_artykul)
 VALUES
-	(2, 0),
-	(3, 0),
-	(2, 1),
-	(6, 2);
+	(3, 1),
+	(4, 1),
+	(3, 2),
+	(7, 3);
 
 INSERT INTO Odkrywca(id_osoba, id_okaz)
 VALUES
-	(1, 0);
+	(2, 1);
 
 INSERT INTO Wspomina(id_artykul, id_okaz)
 VALUES
-	(0, 0),
-	(1, 2),
-	(1, 3),
-	(1, 5);
+	(1, 1),
+	(2, 3),
+	(2, 4),
+	(2, 6);

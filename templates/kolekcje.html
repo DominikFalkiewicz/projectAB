@@ -15,10 +15,14 @@
                 <td>{{ row[1] }}</td>
                 <td>
                     <form action="" method="post">
-                        <button type="submit" name="delete_button" value="d{{ row[0] }}">Delete</button>
+                        <button type="submit" name="button" value="d{{ row[0] }}">Usuń</button>
                     </form>
                 </td>
-                <!--<td><button value='d{{ row[0] }}' formmethod='POST'>Delete</button></td>-->
+                <td>
+                    <form action="" method="post">
+                        <button type="submit" name="button" value="u{{ row[0] }}">Zmień</button>
+                    </form>
+                </td>
             </tr>
         {% endfor %}
     </table>
