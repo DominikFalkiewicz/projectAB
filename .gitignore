@@ -1,1 +1,4 @@
 diagram/
+__pycache__/
+/bin/
+*.db

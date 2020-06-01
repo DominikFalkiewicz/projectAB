@@ -1,89 +1,63 @@
---ON UPDATE CASCADE s¹ niepotrzebne poniewa¿ kluczami s¹ automatycznie generowane indeksy.
---W zwi¹zkach wiele-wiele zapewniê 'conalmniej jeden' tam gdzie jest potrzebne na poziomie aplikacji.
+--ON UPDATE CASCADE sï¿½ niepotrzebne poniewaï¿½ kluczami sï¿½ automatycznie generowane indeksy.
+--W zwiï¿½zkach wiele-wiele zapewniï¿½ 'conalmniej jeden' tam gdzie jest potrzebne na poziomie aplikacji.
 
 CREATE TABLE Adres(
 	id INTEGER IDENTITY(0, 1) PRIMARY KEY,
-	nr_budynku INTEGER NOT NULL CHECK(nr_budynku > 0),
-	ulica VARCHAR(30) NOT NULL,
-	miasto VARCHAR(30) NOT NULL,
-	kraj VARCHAR(30) NOT NULL
+	nr_budynku INTEGER CHECK(nr_budynku > 0) NOT NULL,
+	ulica VARCHAR(30) CHECK(LENGTH(ulica) > 0),
+	miasto VARCHAR(30) CHECK(LENGTH(miasto) > 0) NOT NULL,
+	kraj VARCHAR(30) CHECK(LENGTH(kraj) > 0) NOT NULL,
+	UNIQUE(nr_budynku, ulica, miasto, kraj)
 );
-
-ALTER TABLE Adres
-ADD CONSTRAINT niepotarzalny_adres UNIQUE(nr_budynku, ulica, miasto, kraj);
 
 CREATE TABLE Uczelnia(
 	id INTEGER IDENTITY(0, 1) PRIMARY KEY,
-	nazwa VARCHAR(100) UNIQUE NOT NULL,
+	nazwa VARCHAR(100) CHECK(LENGTH(nazwa) > 0) UNIQUE NOT NULL,
 	id_adres INTEGER REFERENCES Adres(id) UNIQUE NOT NULL
 );
 
 CREATE TABLE Osoba(
 	id INTEGER IDENTITY(0, 1) PRIMARY KEY,
-	imie VARCHAR(30) NOT NULL,
-	nazwisko VARCHAR(30) NOT NULL,
-	data_urodzenia DATE CHECK(data_urodzenia < GETDATE()) NOT NULL,
-	data_smierci DATE,
+	imie VARCHAR(30) CHECK(LENGTH(imie) > 0) NOT NULL,
+	nazwisko VARCHAR(30) CHECK(LENGTH(nazwisko) > 0) NOT NULL,
+	data_urodzenia DATE CHECK(data_urodzenia < DATE('now')) NOT NULL,
+	data_smierci DATE CHECK(data_smierci <= DATE('now')),
 	stopien_naukowy CHAR(3) CHECK(stopien_naukowy IN ('mgr', 'drr', 'drh', 'pro')),
-	id_uczelnia INTEGER REFERENCES Uczelnia(id)
+	id_uczelnia INTEGER REFERENCES Uczelnia(id),
+	CHECK(data_smierci > data_urodzenia AND data_smierci <= DATE('now'))
 );
-
-ALTER TABLE Osoba
-ADD CONSTRAINT sensowan_smierc CHECK(data_smierci > data_urodzenia AND data_smierci <= GETDATE());
 
 CREATE TABLE Kolekcja(
 	id INTEGER IDENTITY(0, 1) PRIMARY KEY,
-	nazwa VARCHAR(100) UNIQUE NOT NULL,
+	nazwa VARCHAR(100) CHECK(LENGTH(nazwa) > 0) UNIQUE NOT NULL,
 	id_adres INTEGER REFERENCES Adres(id) UNIQUE NOT NULL
 );
 
 CREATE TABLE Klad(
 	id INTEGER IDENTITY(0, 1) PRIMARY KEY,
-	nazwa VARCHAR(30),
+	nazwa VARCHAR(30) CHECK(LENGTH(nazwa) > 0),
 	opis TEXT,
 	ranga VARCHAR(30),
 	nisza VARCHAR(30),
-	id_nadklad INTEGER REFERENCES Klad(id)
+	id_nadklad INTEGER REFERENCES Klad(id),
+	CHECK(ranga IN (NULL, 'Gatunek', 'Rodzaj', 'Rodzina', 'Rzï¿½d', 'Gromada', 'Typ', 'Krï¿½lestwo', 'Domena',
+	'Drzewo ï¿½ycia')),
+	CHECK(nisza IN (NULL, 'Producent', 'Reducent', 'Padlinoï¿½erca', 'Owadoï¿½erca', 'Drapieï¿½nik', 'Roï¿½linoï¿½erca')),
+	CHECK(nisza IS NULL OR ranga = 'Gatunek')
 );
-
-ALTER TABLE Klad
-ADD CONSTRAINT odpowiednia_ranga
-	CHECK(ranga IN (
-		'Gatunek',
-		'Rodzaj',
-		'Rodzina',
-		'Rz¹d',
-		'Gromada',
-		'Typ',
-		'Królestwo',
-		'Domena',
-		'Drzewo ¯ycia'));
-
-ALTER TABLE Klad
-ADD CONSTRAINT odpowiednia_nisza
-	CHECK(nisza IN (
-		'Producent',
-		'Reducent',
-		'Padlino¿erca',
-		'Owado¿erca',
-		'Drapie¿nik',
-		'Roœlino¿erca'));
-
-ALTER TABLE Klad
-ADD CONSTRAINT nisza_dla_gatunku CHECK(nisza IS NULL OR ranga = 'Gatunek');
 
 CREATE TABLE Stanowisko(
 	id INTEGER IDENTITY(0, 1) PRIMARY KEY,
-	nazwa VARCHAR(100) UNIQUE NOT NULL,
-	okres VARCHAR(30),
+	nazwa VARCHAR(100) CHECK(LENGTH(nazwa) > 0) UNIQUE NOT NULL,
+	okres VARCHAR(30) CHECK(LENGTH(okres) > 0),
 	opis TEXT
 );
 
 CREATE TABLE Okaz(
 	id INTEGER IDENTITY(0, 1) PRIMARY KEY,
-	identyfikator VARCHAR(30) UNIQUE NOT NULL,
-	pseudonim VARCHAR(30),
-	data_odkrycia DATE,
+	identyfikator VARCHAR(30) CHECK(LENGTH(identyfikator) > 0) UNIQUE NOT NULL,
+	pseudonim VARCHAR(30) CHECK(LENGTH(pseudonim) > 0),
+	data_odkrycia DATE CHECK(data_odkrycia <= DATE('now')),
 	opis TEXT,
 	id_klad INTEGER REFERENCES Klad(id) NOT NULL,
 	id_kolekcja INTEGER REFERENCES Kolekcja(id),
@@ -98,38 +72,34 @@ CREATE TABLE Odkrywca(
 
 CREATE TABLE Datowanie(
 	id INTEGER IDENTITY(0, 1) PRIMARY KEY,
-	data_wykonania DATE CHECK(data_wykonania <= GETDATE())NOT NULL,
-	technika VARCHAR(30) NOT NULL,
+	data_wykonania DATE CHECK(data_wykonania <= DATE('now'))NOT NULL,
+	technika VARCHAR(30) CHECK(LENGTH(technika) > 0) NOT NULL,
 	wiek INTEGER CHECK(wiek > 0) NOT NULL,
 	id_okaz INTEGER REFERENCES Okaz(id) ON DELETE CASCADE NOT NULL
 );
 
 CREATE TABLE Czasopismo(
 	id INTEGER IDENTITY(0, 1) PRIMARY KEY,
-	tytul VARCHAR(100) UNIQUE NOT NULL,
-	kraj VARCHAR(30) NOT NULL,
+	tytul VARCHAR(100) CHECK(LENGTH(tytul) > 0) UNIQUE NOT NULL,
+	kraj VARCHAR(30) CHECK(LENGTH(kraj) > 0) NOT NULL,
 	opis TEXT
 );
 
 CREATE TABLE Numer(
 	id INTEGER IDENTITY(0, 1) PRIMARY KEY,
-	numer INTEGER NOT NULL,
-	data_wydania DATE CHECK(data_wydania <= GETDATE()) NOT NULL,
-	id_czasopismo INTEGER REFERENCES Czasopismo(id) ON DELETE CASCADE NOT NULL
+	numer INTEGER CHECK(numer > 0) NOT NULL,
+	data_wydania DATE CHECK(data_wydania <= DATE('now')) NOT NULL,
+	id_czasopismo INTEGER REFERENCES Czasopismo(id) ON DELETE CASCADE NOT NULL,
+	UNIQUE(numer, id_czasopismo)
 );
-
-ALTER TABLE Numer
-ADD CONSTRAINT niepowtarzalny_numer UNIQUE(numer, id_czasopismo);
 
 CREATE TABLE Artykul(
 	id INTEGER IDENTITY(0, 1) PRIMARY KEY,
-	tytul VARCHAR(100) NOT NULL,
+	tytul VARCHAR(100) CHECK(LENGTH(tytul) > 0) NOT NULL,
 	opis TEXT,
-	id_numer INTEGER REFERENCES Numer(id) ON DELETE CASCADE NOT NULL
+	id_numer INTEGER REFERENCES Numer(id) ON DELETE CASCADE NOT NULL,
+	UNIQUE(tytul, id_numer)
 );
-
-ALTER TABLE Artykul
-ADD CONSTRAINT niepowtarzalny_artykul UNIQUE(tytul, id_numer);
 
 CREATE TABLE Autor(
 	id INTEGER IDENTITY(0, 1) PRIMARY KEY,
