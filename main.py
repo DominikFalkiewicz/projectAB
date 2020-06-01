@@ -25,9 +25,9 @@ path_kolekcje = "kolekcje.html"
 
 baza = Baza(path_db)
 
+baza.drop()
 baza.create()
 baza.insert()
-baza.drop()
 
 menu_handler = Menu(baza, path_menu)
 osoby_handler = Osoby(baza, path_osoby)
@@ -83,7 +83,7 @@ def czasopisma():
     return czasopisma_handler.render()
 
 
-@app.route('/kolekcje')
+@app.route('/kolekcje', methods=['GET', 'POST'])
 def kolekcje():
     return kolekcje_handler.render()
 
@@ -95,3 +95,4 @@ def stanowiska():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
