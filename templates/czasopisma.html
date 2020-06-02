@@ -5,6 +5,36 @@
     <title>Skamieniałości - Czasopisma</title>
 </head>
 <body>
-
+    <h1>Czasopisma Tematyczne</h1>
+    <form action="" method="post">
+        <button type="submit" name="button" value="c">Dodaj</button>
+    </form>
+    <form action="" method="post">
+        <label for="pat">Wzorzec:</label>
+        <input type="text" name="pat" id="pat" size="30" value=""/>
+        <button type="submit" name="button" value="s">Szukaj</button>
+    </form>
+    <table border="1" cellpadding="0" cellspacing="0">
+        <tr>
+            <th> Tytuł </th>
+            <th> Kraj </th>
+        </tr>
+        {% for row in rekordy %}
+            <tr>
+                <td>{{ row[1] }}</td>
+                <td>{{ row[2] }}</td>
+                <td>
+                    <form action="" method="post">
+                        <button type="submit" name="button" value="d{{ row[0] }}">Usuń</button>
+                    </form>
+                </td>
+                <td>
+                    <form action="" method="post">
+                        <button type="submit" name="button" value="u{{ row[0] }}">Zmień</button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
 </body>
 </html>

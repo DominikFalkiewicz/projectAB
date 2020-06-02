@@ -79,9 +79,17 @@ def numery():
     return numery_handler.render()
 
 
-@app.route('/czasopisma')
+@app.route('/czasopisma', methods=['GET', 'POST'])
 def czasopisma():
     return czasopisma_handler.render()
+
+@app.route('/czasopisma/update', methods=['GET', 'POST'])
+def update_czasopisma():
+    return czasopisma_handler.render_update()
+
+@app.route('/czasopisma/create', methods=['GET', 'POST'])
+def create_czasopisma():
+    return czasopisma_handler.render_create()
 
 
 @app.route('/kolekcje', methods=['GET', 'POST'])
@@ -92,6 +100,11 @@ def kolekcje():
 @app.route('/kolekcje/update', methods=['GET', 'POST'])
 def update_kolekcje():
     return kolekcje_handler.render_update()
+
+
+@app.route('/kolekcje/create', methods=['GET', 'POST'])
+def create_kolekcje():
+    return kolekcje_handler.render_create()
 
 
 @app.route('/stanowiska')
