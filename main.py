@@ -10,6 +10,7 @@ from czasopisma import Czasopisma
 from stanowiska import Stanowiska
 from kolekcje import Kolekcje
 from flask import Flask
+from multiprocessing import Process
 
 path_db = "baza.db"
 path_menu = "menu.html"
@@ -43,6 +44,7 @@ kolekcje_handler = Kolekcje(baza, path_kolekcje)
 app = Flask(__name__)
 app.secret_key = '1234567890'
 app.config['SESSION_TYPE'] = 'filesystem'
+
 
 @app.route('/')
 def menu():
@@ -83,13 +85,20 @@ def numery():
 def czasopisma():
     return czasopisma_handler.render()
 
-@app.route('/czasopisma/update', methods=['GET', 'POST'])
-def update_czasopisma():
-    return czasopisma_handler.render_update()
 
 @app.route('/czasopisma/create', methods=['GET', 'POST'])
 def create_czasopisma():
     return czasopisma_handler.render_create()
+
+
+@app.route('/czasopisma/read', methods=['GET', 'POST'])
+def read_czasopisma():
+    return czasopisma_handler.render_read()
+
+
+@app.route('/czasopisma/update', methods=['GET', 'POST'])
+def update_czasopisma():
+    return czasopisma_handler.render_update()
 
 
 @app.route('/kolekcje', methods=['GET', 'POST'])
@@ -97,14 +106,19 @@ def kolekcje():
     return kolekcje_handler.render()
 
 
-@app.route('/kolekcje/update', methods=['GET', 'POST'])
-def update_kolekcje():
-    return kolekcje_handler.render_update()
-
-
 @app.route('/kolekcje/create', methods=['GET', 'POST'])
 def create_kolekcje():
     return kolekcje_handler.render_create()
+
+
+@app.route('/kolekcje/read', methods=['GET', 'POST'])
+def read_kolekcje():
+    return kolekcje_handler.render_read()
+
+
+@app.route('/kolekcje/update', methods=['GET', 'POST'])
+def update_kolekcje():
+    return kolekcje_handler.render_update()
 
 
 @app.route('/stanowiska')

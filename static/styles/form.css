@@ -1,0 +1,9 @@
+﻿form {
+    display: block;
+    border: 1px solid black;
+    background: lightgrey;
+    width: 500px;
+}
+div.pole{
+    display: block;
+}

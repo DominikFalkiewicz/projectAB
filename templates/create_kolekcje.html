@@ -2,19 +2,31 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <title>Skamieniałości - Czasopisma - Create</title>
+    <title>Skamieniałości - Kolekcje - Create</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/form.css') }}" media="screen">
 </head>
 <body>
     <form action="" method="POST">
-        <label for="nazwa">Nazwa:</label>
-        <input type="text" name="nazwa" id="nazwa" size="100" value="Nazwa"/>
-        <label for="adresy_wybor">Adres:</label>
-        <select name="adresy_wybor" id="adresy_wybor">
-            {% for row in adresy %}
-                <option name="wybrany_adres" value="{{ row[0] }}">{{ row[1] }}</option>
-            {% endfor %}
-        </select>
-        <button type="submit" name="button" value="zatwierdz">Zatwierdź</button>
+        <div>
+            Nazwa:
+        </div>
+        <div>
+            <input type="text" name="nazwa" size="60" value="Nazwa"/>
+        </div>
+        <div>
+            Adres:
+        </div>
+        <div>
+            <select name="adresy_wybor">
+                {% for row in adresy %}
+                    <option name="wybrany_adres" value="{{ row[0] }}">{{ row[1] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <button type="submit" name="button" value="zatwierdz">Zatwierdź</button>
+            <button type="submit" name="button" value="anuluj">Anuluj</button>
+        </div>
     </form>
 </body>
 </html>

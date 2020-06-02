@@ -1,0 +1,29 @@
+﻿h1 {
+    display: block;
+    text-align: center;
+    padding: 10px;
+    border: 1px solid black;
+    background: lightgreen;
+    margin-bottom: 15px
+}
+div.sekcja {
+    display: block;
+    border: 1px solid black;
+    background: lightgrey;
+    margin: 1px;
+    padding: 3px;
+}
+tbale {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th {
+    border: 1px solid black;
+    border-collapse: collapse;
+    background: coral;
+}
+td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    background: lightblue;
+}

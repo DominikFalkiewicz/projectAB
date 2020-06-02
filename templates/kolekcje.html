@@ -3,36 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <title>Skamieniałości - Kolekcje</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/table.css') }}" media="screen">
 </head>
 <body>
     <h1>Kolekcje Skamieniałości</h1>
-    <form action="" method="post">
-        <button type="submit" name="button" value="c">Dodaj</button>
-    </form>
-    <form action="" method="post">
-        <label for="pat">Wzorzec:</label>
-        <input type="text" name="pat" id="pat" size="30" value=""/>
-        <button type="submit" name="button" value="s">Szukaj</button>
-    </form>
-    <table border="1" cellpadding="0" cellspacing="0">
-        <tr>
-            <th> Nazwa </th>
-        </tr>
-        {% for row in rekordy %}
+    <ul>
+        <li><a href="{{ url_for('menu') }}">Menu</a></li>
+    </ul>
+    <div class="sekcja">
+        <form action="" method="post">
+            <button type="submit" name="button" value="c">Dodaj</button>
+        </form>
+        <form action="" method="post">
+            <label for="pat">Wzorzec:</label>
+            <input type="text" name="pat" id="pat" size="30" value=""/>
+            <button type="submit" name="button" value="s">Szukaj</button>
+        </form>
+    </div>
+    <div class="sekcja">
+        <table>
             <tr>
-                <td>{{ row[1] }}</td>
-                <td>
-                    <form action="" method="post">
-                        <button type="submit" name="button" value="d{{ row[0] }}">Usuń</button>
-                    </form>
-                </td>
-                <td>
-                    <form action="" method="post">
-                        <button type="submit" name="button" value="u{{ row[0] }}">Zmień</button>
-                    </form>
-                </td>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th> Nazwa </th>
             </tr>
-        {% endfor %}
-    </table>
+            {% for row in rekordy %}
+                <tr>
+                    <td>
+                        <form action="" method="post">
+                            <button type="submit" name="button" value="d{{ row[0] }}">Usuń</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="" method="post">
+                            <button type="submit" name="button" value="u{{ row[0] }}">Zmień</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="" method="post">
+                            <button type="submit" name="button" value="r{{ row[0] }}">Pokaż</button>
+                        </form>
+                    </td>
+                    <td>{{ row[1] }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
 </body>
 </html>

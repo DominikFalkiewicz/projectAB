@@ -1,0 +1,6 @@
+﻿td {
+    border-bottom: 1px solid black;
+}
+td.pole {
+    max-width: 500px;
+}

@@ -1,0 +1,9 @@
+﻿h1 {
+    display: block;
+    text-align: center;
+    text-transform: uppercase;
+    padding: 10px;
+    border: 1px solid black;
+    background: lightgreen;
+    margin-bottom: 15px
+}
