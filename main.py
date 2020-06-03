@@ -76,9 +76,24 @@ def artykuly():
     return artykuly_handler.render()
 
 
-@app.route('/numery')
+@app.route('/numery', methods=['GET', 'POST'])
 def numery():
     return numery_handler.render()
+
+
+@app.route('/numery/create', methods=['GET', 'POST'])
+def create_numery():
+    return numery_handler.render_create()
+
+
+@app.route('/numery/read', methods=['GET', 'POST'])
+def read_numery():
+    return numery_handler.render_read()
+
+
+@app.route('/numery/update', methods=['GET', 'POST'])
+def update_numery():
+    return numery_handler.render_update()
 
 
 @app.route('/czasopisma', methods=['GET', 'POST'])

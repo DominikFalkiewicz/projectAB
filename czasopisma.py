@@ -46,7 +46,7 @@ class Czasopisma:
         if request.method == "POST":
             form_button = request.form["button"]
             if form_button == "wroc":
-                return redirect("/kolekcje")
+                return redirect("/czasopisma")
 
         dane = self.baza.ask("SELECT tytul, kraj, opis FROM czasopismo WHERE id = " + rid)[0]
         tytul = dane[0]

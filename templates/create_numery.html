@@ -2,24 +2,30 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <title>Skamieniałości - Kolekcje - Create</title>
+    <title>Skamieniałości - Numery - Create</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/form.css') }}" media="screen">
 </head>
 <body>
     <form action="" method="POST">
         <div>
-            Nazwa:
+            Numer:
         </div>
         <div>
-            <input type="text" name="nazwa" size="60" value=""/>
+            <input type="number" name="numer" size="60" min="1"/>
         </div>
         <div>
-            Adres:
+            Data:
         </div>
         <div>
-            <select name="adresy_wybor">
-                {% for row in adresy %}
-                    <option name="wybrany_adres" value="{{ row[0] }}">{{ row[1] }}</option>
+            <input type="date" name="data" value="{{ dzsiaj }}" size="60"/>
+        </div>
+        <div>
+            Czasopismo:
+        </div>
+        <div>
+            <select name="czasopisma_wybor">
+                {% for row in czasopisma %}
+                    <option name="wybrane_czasopismo" value="{{ row[0] }}">{{ row[1] }}</option>
                 {% endfor %}
             </select>
         </div>

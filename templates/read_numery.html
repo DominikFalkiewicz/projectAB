@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Skamieniałości - Numery - Read</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/read.css') }}" media="screen">
+</head>
+<body>
+    <form action="" method="POST">
+        <table>
+            <tr>
+                <td>Tytuł: </td>
+                <td>{{ tytul }}</td>
+            </tr>
+            <tr>
+                <td>Numer: </td>
+                <td>{{ numer }}</td>
+            </tr>
+            <tr>
+                <td>Data: </td>
+                <td>{{ data }}</td>
+            </tr>
+        </table>
+        <button type="submit" name="button" value="wroc">Wróć</button>
+    </form>
+</body>
+</html>
