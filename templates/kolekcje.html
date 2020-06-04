@@ -27,6 +27,7 @@
                 <th></th>
                 <th></th>
                 <th> Nazwa </th>
+                <th> Kraj </th>
             </tr>
             {% for row in rekordy %}
                 <tr>
@@ -46,6 +47,7 @@
                         </form>
                     </td>
                     <td>{{ row[1] }}</td>
+                    <td>{{ row[2] }}</td>
                 </tr>
             {% endfor %}
         </table>

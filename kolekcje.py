@@ -21,10 +21,12 @@ class Kolekcje:
                 self.delete(form_button[1:])
             elif form_button[0] == "s":
                 pat = request.form["pat"]
-                rekordy = self.baza.ask("SELECT * FROM kolekcja WHERE nazwa LIKE '%" + pat + "%'")
+                rekordy = self.baza.ask("SELECT kolekcja.id, nazwa, kraj FROM kolekcja INNER JOIN adres "
+                                        "ON id_adres = adres.id AND nazwa LIKE '%" + pat + "%' ORDER BY kraj")
                 return render_template(self.path, rekordy=rekordy)
 
-        rekordy = self.baza.ask("SELECT * FROM kolekcja ORDER BY nazwa")
+        rekordy = self.baza.ask("SELECT kolekcja.id, nazwa, kraj FROM kolekcja INNER JOIN adres "
+                                "ON id_adres = adres.id ORDER BY kraj")
         return render_template(self.path, rekordy=rekordy)
 
     def render_create(self):

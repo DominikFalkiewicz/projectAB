@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Skamieniałości - Uczelnie - Update</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/form.css') }}" media="screen">
+</head>
+<body>
+    <form action="" method="POST">
+        <div>
+            Nazwa:
+        </div>
+        <div>
+            <input type="text" name="nazwa" size="60" value="{{ stara_nazwa }}"/>
+        </div>
+        <div>
+            Adres:
+        </div>
+        <div>
+            <select name="adresy_wybor">
+                <option selected name="wybrany_adres" value="{{ stary_adres[0] }}">{{ stary_adres[1] }}</option>
+                {% for row in adresy %}
+                    <option name="wybrany_adres" value="{{ row[0] }}">{{ row[1] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="pole">
+            <button type="submit" name="button" value="zatwierdz">Zatwierdź</button>
+            <button type="submit" name="button" value="anuluj">Anuluj</button>
+        </div>
+    </form>
+</body>
+</html>

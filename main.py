@@ -66,9 +66,24 @@ def klady():
     return klady_handler.render()
 
 
-@app.route('/uczelnie')
+@app.route('/uczelnie', methods=['GET', 'POST'])
 def uczelnie():
     return uczelnie_handler.render()
+
+
+@app.route('/uczelnie/create', methods=['GET', 'POST'])
+def create_uczelnie():
+    return uczelnie_handler.render_create()
+
+
+@app.route('/uczelnie/read', methods=['GET', 'POST'])
+def read_uczelnie():
+    return uczelnie_handler.render_read()
+
+
+@app.route('/uczelnie/update', methods=['GET', 'POST'])
+def update_uczelnie():
+    return uczelnie_handler.render_update()
 
 
 @app.route('/artykuly', methods=['GET', 'POST'])
