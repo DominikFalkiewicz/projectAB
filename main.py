@@ -151,9 +151,24 @@ def update_kolekcje():
     return kolekcje_handler.render_update()
 
 
-@app.route('/stanowiska')
+@app.route('/stanowiska', methods=['GET', 'POST'])
 def stanowiska():
     return stanowiska_handler.render()
+
+
+@app.route('/stanowiska/create', methods=['GET', 'POST'])
+def create_stanowiska():
+    return stanowiska_handler.render_create()
+
+
+@app.route('/stanowiska/read', methods=['GET', 'POST'])
+def read_stanowiska():
+    return stanowiska_handler.render_read()
+
+
+@app.route('/stanowiska/update', methods=['GET', 'POST'])
+def update_stanowiska():
+    return stanowiska_handler.render_update()
 
 
 if __name__ == "__main__":

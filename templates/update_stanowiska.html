@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Skamieniałości - Stanowiska - Update</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/form.css') }}" media="screen">
+</head>
+<body>
+    <form action="" method="POST">
+        <div>
+            Nazwa:
+        </div>
+        <div>
+            <input type="text" name="nazwa" size="60" value="{{ stara_nazwa }}"/>
+        </div>
+        <div>
+            Okres:
+        </div>
+        <div>
+            <input type="text" name="okres" size="60" value="{{ stary_okres }}"/>
+        </div>
+        <div class="pole">
+            <button type="submit" name="button" value="zatwierdz">Zatwierdź</button>
+            <button type="submit" name="button" value="anuluj">Anuluj</button>
+        </div>
+    </form>
+</body>
+</html>
