@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Skamieniałości - Artykuly - Update</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/form.css') }}" media="screen">
+</head>
+<body>
+    <form action="" method="POST">
+        <div>
+            Tytuł:
+        </div>
+        <div>
+            <input type="text" name="tytul" size="60" value="{{ stary_tytul }}"/>
+        </div>
+        <div>
+            Numer:
+        </div>
+        <div>
+            <select name="numery_wybor">
+                <option selected name="wybrany_numer" value="{{ stary_numer[0] }}">{{ stary_numer[1] }}</option>
+                {% for row in numery %}
+                    <option name="wybrany_numer" value="{{ row[0] }}">{{ row[1] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="pole">
+            Opis:
+        </div>
+        <div class="pole">
+            <textarea cols="40" rows="10" name="opis">{{ stary_opis }}</textarea>
+        </div>
+        <div>
+            <button type="submit" name="button" value="zatwierdz">Zatwierdź</button>
+            <button type="submit" name="button" value="anuluj">Anuluj</button>
+        </div>
+    </form>
+</body>
+</html>

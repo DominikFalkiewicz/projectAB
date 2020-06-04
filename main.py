@@ -71,9 +71,24 @@ def uczelnie():
     return uczelnie_handler.render()
 
 
-@app.route('/artykuly')
+@app.route('/artykuly', methods=['GET', 'POST'])
 def artykuly():
     return artykuly_handler.render()
+
+
+@app.route('/artykuly/create', methods=['GET', 'POST'])
+def create_artykuly():
+    return artykuly_handler.render_create()
+
+
+@app.route('/artykuly/read', methods=['GET', 'POST'])
+def read_artykuly():
+    return artykuly_handler.render_read()
+
+
+@app.route('/artykuly/update', methods=['GET', 'POST'])
+def update_artykuly():
+    return artykuly_handler.render_update()
 
 
 @app.route('/numery', methods=['GET', 'POST'])
