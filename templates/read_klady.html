@@ -2,19 +2,27 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <title>Skamieniałości - Czasopisma - Read</title>
+    <title>Skamieniałości - Klady - Read</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/read.css') }}" media="screen">
 </head>
 <body>
     <form action="" method="POST">
         <table>
             <tr>
-                <td>Tytuł: </td>
-                <td>{{ tytul }}</td>
+                <td>Ranga: </td>
+                <td>{{ ranga }}</td>
             </tr>
             <tr>
-                <td>Kraj: </td>
-                <td>{{ kraj }}</td>
+                <td>Nazwa: </td>
+                <td>{{ nazwa }}</td>
+            </tr>
+            <tr>
+                <td>Nadklad: </td>
+                <td>{{ nadklad }}</td>
+            </tr>
+            <tr>
+                <td>Nisza: </td>
+                <td>{{ nisza }}</td>
             </tr>
             <tr>
                 <td>Opis: </td>

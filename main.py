@@ -2,6 +2,7 @@ from baza import Baza
 from menu import Menu
 from osoby import Osoby
 from okazy import Okazy
+from adresy import Adresy
 from klady import Klady
 from uczelnie import Uczelnie
 from artykuly import Artykuly
@@ -10,12 +11,12 @@ from czasopisma import Czasopisma
 from stanowiska import Stanowiska
 from kolekcje import Kolekcje
 from flask import Flask
-from multiprocessing import Process
 
 path_db = "baza.db"
 path_menu = "menu.html"
 path_osoby = "osoby.html"
 path_okazy = "okazy.html"
+path_adresy = "adresy.html"
 path_klady = "klady.html"
 path_uczelnie = "uczelnie.html"
 path_artykuly = "artykuly.html"
@@ -33,6 +34,7 @@ baza.insert()
 menu_handler = Menu(baza, path_menu)
 osoby_handler = Osoby(baza, path_osoby)
 okazy_handler = Okazy(baza, path_okazy)
+adresy_handler = Adresy(baza, path_adresy)
 klady_handler = Klady(baza, path_klady)
 uczelnie_handler = Uczelnie(baza, path_uczelnie)
 artykuly_handler = Artykuly(baza, path_artykuly)
@@ -61,9 +63,29 @@ def okazy():
     return okazy_handler.render()
 
 
-@app.route('/klady')
+@app.route('/adresy')
+def adresy():
+    return adresy_handler.render()
+
+
+@app.route('/klady', methods=['GET', 'POST'])
 def klady():
     return klady_handler.render()
+
+
+@app.route('/klady/create', methods=['GET', 'POST'])
+def create_klady():
+    return klady_handler.render_create()
+
+
+@app.route('/klady/read', methods=['GET', 'POST'])
+def read_klady():
+    return klady_handler.render_read()
+
+
+@app.route('/klady/update', methods=['GET', 'POST'])
+def update_klady():
+    return klady_handler.render_update()
 
 
 @app.route('/uczelnie', methods=['GET', 'POST'])
@@ -188,4 +210,3 @@ def update_stanowiska():
 
 if __name__ == "__main__":
     app.run(debug=True)
-

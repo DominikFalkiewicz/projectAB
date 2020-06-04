@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Skamieniałości - Klady - Create</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/form.css') }}" media="screen">
+</head>
+<body>
+    <form action="" method="POST">
+        <div>
+            Nazwa:
+        </div>
+        <div>
+            <input type="text" name="nazwa" size="60" value="{{ stara_nazwa }}"/>
+        </div>
+        <div>
+            Ranga:
+        </div>
+        <div>
+            <input type="text" name="ranga" size="60" value="{{ stara_ranga }}"/>
+        </div>
+        <div>
+            Nisza:
+        </div>
+        <div>
+            <input type="text" name="nisza" size="60" value="{{ stara_nisza }}"/>
+        </div>
+        <div>
+            Opis:
+        </div>
+        <div>
+            <input type="text" name="opis" size="60" value="{{ stary_opis }}"/>
+        </div>
+        <div>
+            Nadklad:
+        </div>
+        <div>
+            <select name="nadklady_wybor" size="5">
+                <option selected name="wybrany_nadklad" value="{{ stary_nadklad[0] }}">{{ stary_nadklad[1] }}</option>
+                {% for row in nadklady %}
+                    <option name="wybrany_nadklad" value="{{ row[0] }}">{{ row[1] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <button type="submit" name="button" value="zatwierdz">Zatwierdź</button>
+            <button type="submit" name="button" value="anuluj">Anuluj</button>
+        </div>
+    </form>
+</body>
+</html>
