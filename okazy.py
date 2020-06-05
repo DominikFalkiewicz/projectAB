@@ -258,7 +258,7 @@ class Okazy:
             if form_button == "anuluj":
                 return redirect("/okazy/artykuly")
 
-        artykuly = self.baza.ask("SELECT artykul.id, artykul.tytul || ' ' || czasopismo.tytul || ' nr. ' || numer "
+        artykuly = self.baza.ask("SELECT artykul.id, artykul.tytul || ' w: ' || czasopismo.tytul || ' nr. ' || numer "
                                  "FROM artykul INNER JOIN numer ON id_numer = numer.id "
                                  "INNER JOIN czasopismo ON id_czasopismo = czasopismo.id "
                                  "WHERE artykul.id NOT IN "

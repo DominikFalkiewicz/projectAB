@@ -27,6 +27,9 @@ class Artykuly:
                                         "INNER JOIN czasopismo ON id_czasopismo = czasopismo.id "
                                         "ORDER BY czasopismo.tytul, artykul.tytul")
                 return render_template(self.path, rekordy=rekordy)
+            elif form_button[:3] == "aok":
+                session["rid"] = form_button[3:]
+                return redirect("/artykuly/okazy")
 
         rekordy = self.baza.ask("SELECT artykul.id, artykul.tytul, czasopismo.tytul FROM artykul "
                                 "INNER JOIN numer ON id_numer = numer.id "
@@ -113,3 +116,41 @@ class Artykuly:
 
     def delete(self, rid):
         self.baza.exe("DELETE FROM artykul WHERE id = " + rid)
+
+    def render_okazy(self):
+        rid = session["rid"]
+        if request.method == "POST":
+            form_button = request.form["button"]
+            if form_button[0] == "c":
+                return redirect("/artykuly/okazy/add")
+            elif form_button[0] == "d":
+                self.delete_okaz(form_button[1:])
+
+        rekordy = self.baza.ask("SELECT wspomina.id, identyfikator, nazwa "
+                                "FROM wspomina INNER JOIN okaz ON id_okaz = okaz.id "
+                                "LEFT JOIN kolekcja ON id_kolekcja = kolekcja.id "
+                                "WHERE id_artykul = " + rid + " ORDER BY nazwa")
+        return render_template("artykuly_okazy.html", rekordy=rekordy)
+
+    def render_okazy_add(self):
+        rid = session["rid"]
+        if request.method == "POST":
+            form_button = request.form["button"]
+            if form_button == "zatwierdz":
+                id_okaz = request.form["okazy_wybor"]
+                self.create_okaz(rid, id_okaz)
+                return redirect("/artykuly/okazy")
+            if form_button == "anuluj":
+                return redirect("/artykuly/okazy")
+
+        okazy = self.baza.ask("SELECT okaz.id, identyfikator || ' w: ' || nazwa "
+                              "FROM okaz LEFT JOIN kolekcja ON id_kolekcja = kolekcja.id "
+                              "WHERE okaz.id NOT IN "
+                              "(SELECT id_okaz FROM wspomina WHERE id_artykul = " + rid + ") ORDER BY nazwa")
+        return render_template("add_artykuly_okazy.html", okazy=okazy)
+
+    def create_okaz(self, rid, id_okaz):
+        self.baza.exe("INSERT INTO wspomina (id_artykul, id_okaz) VALUES (" + rid + ", " + id_okaz + ")")
+
+    def delete_okaz(self, sid):
+        self.baza.exe("DELETE FROM wspomina WHERE id = " + sid)

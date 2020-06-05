@@ -2,14 +2,14 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <title>Skamieniałości - Okazy - Artykuly</title>
+    <title>Skamieniałości - Artykuly - Okazy</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/table.css') }}" media="screen">
 </head>
 <body>
-    <h1>Artykuły</h1>
+    <h1>Okazy</h1>
     <ul>
         <li><a href="{{ url_for('menu') }}">Menu</a></li>
-        <li><a href="{{ url_for('okazy') }}">Okazy</a></li>
+        <li><a href="{{ url_for('artykuly') }}">Artykuly</a></li>
     </ul>
     <div class="sekcja">
         <form action="" method="post">
@@ -20,8 +20,8 @@
         <table>
             <tr>
                 <th></th>
-                <th> Tytuł </th>
-                <th> Czasopismo </th>
+                <th> Identyfikator </th>
+                <th> Kolekcja </th>
             </tr>
             {% for row in rekordy %}
                 <tr>

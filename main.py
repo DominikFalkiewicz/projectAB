@@ -133,6 +133,16 @@ def update_adresy():
     return adresy_handler.render_update()
 
 
+@app.route('/artykuly/okazy', methods=['GET', 'POST'])
+def okazy_artykuly():
+    return artykuly_handler.render_okazy()
+
+
+@app.route('/artykuly/okazy/add', methods=['GET', 'POST'])
+def add_okazy_artykuly():
+    return artykuly_handler.render_okazy_add()
+
+
 @app.route('/klady', methods=['GET', 'POST'])
 def klady():
     return klady_handler.render()
