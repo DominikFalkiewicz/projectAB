@@ -26,6 +26,9 @@ class Osoby:
                                         "WHERE imie LIKE '%" + pat + "%' OR nazwisko LIKE '%" + pat + "%' "
                                         "ORDER BY nazwisko")
                 return render_template(self.path, rekordy=rekordy)
+            elif form_button[:3] == "aar":
+                session["rid"] = form_button[3:]
+                return redirect("/osoby/artykuly")
 
         rekordy = self.baza.ask("SELECT osoba.id, imie, nazwisko, stopien_naukowy, nazwa "
                                 "FROM osoba LEFT JOIN uczelnia ON id_uczelnia = uczelnia.id ORDER BY nazwisko")
@@ -148,3 +151,43 @@ class Osoby:
 
     def delete(self, rid):
         self.baza.exe("DELETE FROM osoba WHERE id = " + rid)
+
+    def render_artykuly(self):
+        rid = session["rid"]
+        if request.method == "POST":
+            form_button = request.form["button"]
+            if form_button[0] == "c":
+                return redirect("/osoby/artykuly/add")
+            elif form_button[0] == "d":
+                self.delete_artykul(form_button[1:])
+
+        rekordy = self.baza.ask("SELECT autor.id, artykul.tytul, czasopismo.tytul || ' nr. ' || numer "
+                                "FROM autor INNER JOIN artykul ON id_artykul = artykul.id "
+                                "INNER JOIN numer ON id_numer = numer.id "
+                                "INNER JOIN czasopismo ON id_czasopismo = czasopismo.id "
+                                "WHERE id_osoba = " + rid + " ORDER BY czasopismo.tytul")
+        return render_template("osoby_artykuly.html", rekordy=rekordy)
+
+    def render_artykuly_add(self):
+        rid = session["rid"]
+        if request.method == "POST":
+            form_button = request.form["button"]
+            if form_button == "zatwierdz":
+                id_artykul = request.form["artykuly_wybor"]
+                self.create_artykul(rid, id_artykul)
+                return redirect("/osoby/artykuly")
+            if form_button == "anuluj":
+                return redirect("/osoby/artykuly")
+
+        artykuly = self.baza.ask("SELECT artykul.id, artykul.tytul || ' w: ' || czasopismo.tytul || ' nr. ' || numer "
+                                 "FROM artykul INNER JOIN numer ON id_numer = numer.id "
+                                 "INNER JOIN czasopismo ON id_czasopismo = czasopismo.id "
+                                 "WHERE artykul.id NOT IN "
+                                 "(SELECT id_artykul FROM autor WHERE id_osoba = " + rid + ")")
+        return render_template("add_osoby_artykuly.html", artykuly=artykuly)
+
+    def create_artykul(self, rid, id_artykul):
+        self.baza.exe("INSERT INTO autor (id_osoba, id_artykul) VALUES (" + rid + ", " + id_artykul + ")")
+
+    def delete_artykul(self, sid):
+        self.baza.exe("DELETE FROM autor WHERE id = " + sid)

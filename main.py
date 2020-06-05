@@ -73,6 +73,16 @@ def update_osoby():
     return osoby_handler.render_update()
 
 
+@app.route('/osoby/artykuly', methods=['GET', 'POST'])
+def artykuly_osoby():
+    return osoby_handler.render_artykuly()
+
+
+@app.route('/osoby/artykuly/add', methods=['GET', 'POST'])
+def add_artykuly_osoby():
+    return osoby_handler.render_artykuly_add()
+
+
 @app.route('/okazy', methods=['GET', 'POST'])
 def okazy():
     return okazy_handler.render()

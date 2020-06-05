@@ -308,4 +308,3 @@ class Okazy:
 
     def delete_osoba(self, sid):
         self.baza.exe("DELETE FROM odkrywca WHERE id = " + sid)
-

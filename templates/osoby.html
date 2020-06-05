@@ -26,6 +26,7 @@
                 <th></th>
                 <th></th>
                 <th></th>
+                <th></th>
                 <th> Imię </th>
                 <th> Nazwisko </th>
                 <th> Stopień Naukowy </th>
@@ -46,6 +47,11 @@
                     <td>
                         <form action="" method="post">
                             <button type="submit" name="button" value="r{{ row[0] }}">Pokaż</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="" method="post">
+                            <button type="submit" name="button" value="aar{{ row[0] }}">Artykuły</button>
                         </form>
                     </td>
                     <td>{{ row[1] }}</td>
