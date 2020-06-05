@@ -1,6 +1,7 @@
 from baza import Baza
 from baza_kont import BazaKont
 from menu import Menu
+from stats import Stats
 from osoby import Osoby
 from okazy import Okazy
 from adresy import Adresy
@@ -16,6 +17,7 @@ from flask import Flask, render_template, request, redirect, session
 path_db = "baza.db"
 path_adb = "baza_kont.db"
 path_menu = "menu.html"
+path_stats = "statystyki.html"
 path_osoby = "osoby.html"
 path_okazy = "okazy.html"
 path_adresy = "adresy.html"
@@ -40,6 +42,7 @@ baza_kont.create()
 baza_kont.insert()
 
 menu_handler = Menu(baza, path_menu)
+stats_handler = Stats(baza, path_stats)
 osoby_handler = Osoby(baza, path_osoby)
 okazy_handler = Okazy(baza, path_okazy)
 adresy_handler = Adresy(baza, path_adresy)
@@ -76,6 +79,11 @@ def main():
 @app.route('/menu', methods=['GET', 'POST'])
 def menu():
     return menu_handler.render()
+
+
+@app.route('/statystyki', methods=['GET', 'POST'])
+def statystyki():
+    return stats_handler.render()
 
 
 @app.route('/osoby', methods=['GET', 'POST'])

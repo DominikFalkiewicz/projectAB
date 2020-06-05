@@ -77,8 +77,8 @@ VALUES
 	('dsnfejfq12', 'Lary', NULL, NULL, 20, 1, 1),
 	('dsnfejfq13', NULL, NULL, NULL, 20, 1, 1),
 	('dsnfejfq14', NULL, NULL, NULL, 21, 1, 1),
-	('dsnfejfq15', NULL, NULL, NULL, 21, 2, 1),
-	('dsnfejfq16', NULL, NULL, NULL, 21, 3, 1),
+	('dsnfejfq15', NULL, NULL, NULL, 21, 2, 2),
+	('dsnfejfq16', NULL, NULL, NULL, 21, 3, 2),
 	('dsnfejfq17', NULL, NULL, NULL, 22, 4, 1);
 
 INSERT INTO Datowanie(data_wykonania, technika, wiek, id_okaz)
