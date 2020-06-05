@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Skamieniałości - Okazy - Read</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/read.css') }}" media="screen">
+</head>
+<body>
+    <form action="" method="POST">
+        <table>
+            <tr>
+                <td>Identyfikator: </td>
+                <td>{{ identyfikator }}</td>
+            </tr>
+            <tr>
+                <td>Pseudonim: </td>
+                <td>{{ pseudonim }}</td>
+            </tr>
+            <tr>
+                <td>Data Odkrycia: </td>
+                <td>{{ data }}</td>
+            </tr>
+            <tr>
+                <td>Opis: </td>
+                <td>{{ opis }}</td>
+            </tr>
+            <tr>
+                <td>Klad: </td>
+                <td>{{ klad }}</td>
+            </tr>
+            <tr>
+                <td>Kolekcja: </td>
+                <td>{{ kolekcja }}</td>
+            </tr>
+            <tr>
+                <td>Stanowisko: </td>
+                <td>{{ stanowisko }}</td>
+            </tr>
+        </table>
+        <button type="submit" name="button" value="wroc">Wróć</button>
+    </form>
+</body>
+</html>

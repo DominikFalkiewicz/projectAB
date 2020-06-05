@@ -58,9 +58,24 @@ def osoby():
     return osoby_handler.render()
 
 
-@app.route('/okazy')
+@app.route('/okazy', methods=['GET', 'POST'])
 def okazy():
     return okazy_handler.render()
+
+
+@app.route('/okazy/create', methods=['GET', 'POST'])
+def create_okazy():
+    return okazy_handler.render_create()
+
+
+@app.route('/okazy/read', methods=['GET', 'POST'])
+def read_okazy():
+    return okazy_handler.render_read()
+
+
+@app.route('/okazy/update', methods=['GET', 'POST'])
+def update_okazy():
+    return okazy_handler.render_update()
 
 
 @app.route('/adresy', methods=['GET', 'POST'])

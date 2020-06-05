@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Skamieniałości - Okazy - Create</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/form.css') }}" media="screen">
+</head>
+<body>
+    <form action="" method="POST">
+        <div>
+            Identyfikator:
+        </div>
+        <div>
+            <input type="text" name="identyfikator" size="60" value=""/>
+        </div>
+        <div>
+            Pseudonim:
+        </div>
+        <div>
+            <input type="text" name="pseudonim" size="60" value="None"/>
+        </div>
+        <div>
+            Data Odkrycia:
+        </div>
+        <div>
+            <input type="date" name="data" value="None"/>
+        </div>
+        <div>
+            Opis:
+        </div>
+        <div>
+            <input type="text" name="opis" size="60" value="None"/>
+        </div>
+        <div>
+            Klad:
+        </div>
+        <div>
+            <select name="klady_wybor" size="5">
+                {% for row in klady %}
+                    <option name="wybrany_klad" value="{{ row[0] }}">{{ row[1] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            Kolekcja:
+        </div>
+        <div>
+            <select name="kolekcje_wybor" size="5">
+                <option selected name="wybrana_kolekcja" value="NULL">-brak-</option>
+                {% for row in kolekcje %}
+                    <option name="wybrana_kolekcja" value="{{ row[0] }}">{{ row[1] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            Stanowisko:
+        </div>
+        <div>
+            <select name="stanowiska_wybor" size="5">
+                <option selected name="wybrane_stanowisko" value="NULL">-brak-</option>
+                {% for row in stanowiska %}
+                    <option name="wybrane_stanowisko" value="{{ row[0] }}">{{ row[1] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <button type="submit" name="button" value="zatwierdz">Zatwierdź</button>
+            <button type="submit" name="button" value="anuluj">Anuluj</button>
+        </div>
+    </form>
+</body>
+</html>

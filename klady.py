@@ -1,5 +1,6 @@
 from flask import render_template, redirect, request, session
 
+
 class Klady:
     def __init__(self, baza, path):
         self.baza = baza
@@ -24,7 +25,6 @@ class Klady:
                                         "LEFT JOIN klad AS nadklad ON klad.id_nadklad = nadklad.id "
                                         "WHERE klad.nazwa LIKE '%" + pat + "%' ORDER BY klad.ranga")
                 return render_template(self.path, rekordy=rekordy)
-
 
         rekordy = self.baza.ask("SELECT klad.id, klad.ranga, klad.nazwa, nadklad.nazwa FROM klad "
                                 "LEFT JOIN klad AS nadklad ON klad.id_nadklad = nadklad.id ORDER BY klad.ranga")
