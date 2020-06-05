@@ -2,17 +2,11 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <title>Skamieniałości - Czasopisma - Create</title>
+    <title>Skamieniałości - Adresy - Create</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/form.css') }}" media="screen">
 </head>
 <body>
     <form action="" method="POST">
-        <div class="pole">
-            Tytuł:
-        </div>
-        <div class="pole">
-            <input type="text" name="tytul" size="60" value=""/>
-        </div>
         <div class="pole">
             Kraj:
         </div>
@@ -20,10 +14,22 @@
             <input type="text" name="kraj" size="60" value=""/>
         </div>
         <div class="pole">
-            Opis:
+            Miasto:
         </div>
         <div class="pole">
-            <textarea cols="40" rows="10" name="opis">None</textarea>
+            <input type="text" name="miasto" size="60" value=""/>
+        </div>
+        <div class="pole">
+            Ulica:
+        </div>
+        <div class="pole">
+            <input type="text" name="ulica" size="60" value="None"/>
+        </div>
+        <div class="pole">
+            Numer Budynku:
+        </div>
+        <div class="pole">
+            <input type="text" name="nr_budynku" size="60" value=""/>
         </div>
         <div class="pole">
             <button type="submit" name="button" value="zatwierdz">Zatwierdź</button>

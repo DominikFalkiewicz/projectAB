@@ -21,7 +21,7 @@ class Czasopisma:
                 self.delete(form_button[1:])
             elif form_button[0] == "s":
                 pat = request.form["pat"]
-                rekordy = self.baza.ask("SELECT * FROM czasopismo WHERE tytul LIKE '%" + pat + "%'")
+                rekordy = self.baza.ask("SELECT * FROM czasopismo WHERE tytul LIKE '%" + pat + "%' ORDER BY tytul")
                 return render_template(self.path, rekordy=rekordy)
 
         rekordy = self.baza.ask("SELECT * FROM czasopismo ORDER BY tytul")

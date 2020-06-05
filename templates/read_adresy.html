@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Skamieniałości - Adresy - Read</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/read.css') }}" media="screen">
+</head>
+<body>
+    <form action="" method="POST">
+        <table>
+            <tr>
+                <td>Adres: </td>
+                <td>{{ adres }}</td>
+            </tr>
+        </table>
+        <button type="submit" name="button" value="wroc">Wróć</button>
+    </form>
+</body>
+</html>

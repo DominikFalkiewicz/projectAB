@@ -63,9 +63,24 @@ def okazy():
     return okazy_handler.render()
 
 
-@app.route('/adresy')
+@app.route('/adresy', methods=['GET', 'POST'])
 def adresy():
     return adresy_handler.render()
+
+
+@app.route('/adresy/create', methods=['GET', 'POST'])
+def create_adresy():
+    return adresy_handler.render_create()
+
+
+@app.route('/adresy/read', methods=['GET', 'POST'])
+def read_adresy():
+    return adresy_handler.render_read()
+
+
+@app.route('/adresy/update', methods=['GET', 'POST'])
+def update_adresy():
+    return adresy_handler.render_update()
 
 
 @app.route('/klady', methods=['GET', 'POST'])
