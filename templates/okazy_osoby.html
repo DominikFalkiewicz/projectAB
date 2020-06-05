@@ -2,11 +2,11 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <title>Skamieniałości - Okazy - Artykuly</title>
+    <title>Skamieniałości - Okazy - Osoby</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/table.css') }}" media="screen">
 </head>
 <body>
-    <h1>Wspominające Artykuły</h1>
+    <h1>Odkrywcy</h1>
     <ul>
         <li><a href="{{ url_for('menu') }}">Menu</a></li>
         <li><a href="{{ url_for('okazy') }}">Okazy</a></li>
@@ -20,8 +20,9 @@
         <table>
             <tr>
                 <th></th>
-                <th> Tytuł </th>
-                <th> Czasopismo </th>
+                <th> Imię </th>
+                <th> Nazwisko </th>
+                <th> Stopień Naukowy </th>
             </tr>
             {% for row in rekordy %}
                 <tr>
@@ -32,6 +33,7 @@
                     </td>
                     <td>{{ row[1] }}</td>
                     <td>{{ row[2] }}</td>
+                    <td>{{ row[3] }}</td>
                 </tr>
             {% endfor %}
         </table>

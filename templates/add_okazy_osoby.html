@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Skamieniałości - Okazy - Osoby - Add</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/form.css') }}" media="screen">
+</head>
+<body>
+    <form action="" method="POST">
+        <div>
+            Osoba:
+        </div>
+        <div>
+            <select name="osoby_wybor" size="5">
+                {% for row in osoby %}
+                    <option name="wybrana_osoba" value="{{ row[0] }}">{{ row[1] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <button type="submit" name="button" value="zatwierdz">Zatwierdź</button>
+            <button type="submit" name="button" value="anuluj">Anuluj</button>
+        </div>
+    </form>
+</body>
+</html>

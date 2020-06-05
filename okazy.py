@@ -34,6 +34,9 @@ class Okazy:
             elif form_button[:3] == "aar":
                 session["rid"] = form_button[3:]
                 return redirect("/okazy/artykuly")
+            elif form_button[:3] == "aos":
+                session["rid"] = form_button[3:]
+                return redirect("/okazy/osoby")
 
         rekordy = self.baza.ask("SELECT okaz.id, identyfikator, pseudonim, klad.nazwa, kolekcja.nazwa "
                                 "FROM okaz LEFT JOIN kolekcja ON id_kolekcja = kolekcja.id "
@@ -270,3 +273,39 @@ class Okazy:
 
     def delete_artykul(self, sid):
         self.baza.exe("DELETE FROM wspomina WHERE id = " + sid)
+
+    def render_osoby(self):
+        rid = session["rid"]
+        if request.method == "POST":
+            form_button = request.form["button"]
+            if form_button[0] == "c":
+                return redirect("/okazy/osoby/add")
+            elif form_button[0] == "d":
+                self.delete_osoba(form_button[1:])
+
+        rekordy = self.baza.ask("SELECT odkrywca.id, imie, nazwisko, stopien_naukowy FROM odkrywca "
+                                "INNER JOIN osoba ON id_osoba = osoba.id WHERE id_okaz = " + rid + " ORDER BY nazwisko")
+        return render_template("okazy_osoby.html", rekordy=rekordy)
+
+    def render_osoby_add(self):
+        rid = session["rid"]
+        if request.method == "POST":
+            form_button = request.form["button"]
+            if form_button == "zatwierdz":
+                id_osoba = request.form["osoby_wybor"]
+                self.create_osoba(rid, id_osoba)
+                return redirect("/okazy/osoby")
+            if form_button == "anuluj":
+                return redirect("/okazy/osoby")
+
+        osoby = self.baza.ask("SELECT id, COALESCE(stopien_naukowy || '. ', '') || imie || ' ' || nazwisko FROM osoba "
+                              "WHERE id NOT IN (SELECT id_osoba FROM odkrywca WHERE id_okaz = " + rid + ")")
+        print(osoby)
+        return render_template("add_okazy_osoby.html", osoby=osoby)
+
+    def create_osoba(self, rid, id_osoba):
+        self.baza.exe("INSERT INTO odkrywca (id_okaz, id_osoba) VALUES (" + rid + ", " + id_osoba + ")")
+
+    def delete_osoba(self, sid):
+        self.baza.exe("DELETE FROM odkrywca WHERE id = " + sid)
+

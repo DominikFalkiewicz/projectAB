@@ -113,6 +113,16 @@ def add_artykuly_okazy():
     return okazy_handler.render_artykuly_add()
 
 
+@app.route('/okazy/osoby', methods=['GET', 'POST'])
+def osoby_okazy():
+    return okazy_handler.render_osoby()
+
+
+@app.route('/okazy/osoby/add', methods=['GET', 'POST'])
+def add_osoby_okazy():
+    return okazy_handler.render_osoby_add()
+
+
 @app.route('/adresy', methods=['GET', 'POST'])
 def adresy():
     return adresy_handler.render()
