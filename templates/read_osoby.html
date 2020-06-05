@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Skamieniałości - Osoby - Read</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/read.css') }}" media="screen">
+</head>
+<body>
+    <form action="" method="POST">
+        <table>
+            <tr>
+                <td>Imię: </td>
+                <td>{{ imie }}</td>
+            </tr>
+            <tr>
+                <td>Nazwisko: </td>
+                <td>{{ nazwisko }}</td>
+            </tr>
+            <tr>
+                <td>Data Urodzenia: </td>
+                <td>{{ data_urodzenia }}</td>
+            </tr>
+            <tr>
+                <td>Data Śmierci: </td>
+                <td>{{ data_smierci }}</td>
+            </tr>
+            <tr>
+                <td>Stopień Naukowy: </td>
+                <td>{{ stopien_naukowy }}</td>
+            </tr>
+            <tr>
+                <td>Uczelnia: </td>
+                <td>{{ uczelnia }}</td>
+            </tr>
+        </table>
+        <button type="submit" name="button" value="wroc">Wróć</button>
+    </form>
+</body>
+</html>

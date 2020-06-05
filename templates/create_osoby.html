@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Skamieniałości - Osoby - Create</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/form.css') }}" media="screen">
+</head>
+<body>
+    <form action="" method="POST">
+        <div>
+            Imie:
+        </div>
+        <div>
+            <input type="text" name="imie" size="60" value=""/>
+        </div>
+        <div>
+            Nazwisko:
+        </div>
+        <div>
+            <input type="text" name="nazwisko" size="60" value=""/>
+        </div>
+        <div>
+            Data Urodzenia:
+        </div>
+        <div>
+            <input type="date" name="data_urodzenia" value=""/>
+        </div>
+        <div>
+            Data Śmierci:
+        </div>
+        <div>
+            <input type="date" name="data_smierci" value="None"/>
+        </div>
+        <div>
+            Stopień Naukowy:
+        </div>
+        <div>
+            <input type="text" name="stopien_naukowy" size="60" value="None"/>
+        </div>
+        <div>
+            Uczelnia:
+        </div>
+        <div>
+            <select name="uczelnie_wybor" size="5">
+                <option selected name="wybrana_uczelnia" value="NULL">-brak-</option>
+                {% for row in uczelnie %}
+                    <option name="wybrana_uczelnia" value="{{ row[0] }}">{{ row[1] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <button type="submit" name="button" value="zatwierdz">Zatwierdź</button>
+            <button type="submit" name="button" value="anuluj">Anuluj</button>
+        </div>
+    </form>
+</body>
+</html>

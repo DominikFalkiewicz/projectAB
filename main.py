@@ -53,9 +53,24 @@ def menu():
     return menu_handler.render()
 
 
-@app.route('/osoby')
+@app.route('/osoby', methods=['GET', 'POST'])
 def osoby():
     return osoby_handler.render()
+
+
+@app.route('/osoby/create', methods=['GET', 'POST'])
+def create_osoby():
+    return osoby_handler.render_create()
+
+
+@app.route('/osoby/read', methods=['GET', 'POST'])
+def read_osoby():
+    return osoby_handler.render_read()
+
+
+@app.route('/osoby/update', methods=['GET', 'POST'])
+def update_osoby():
+    return osoby_handler.render_update()
 
 
 @app.route('/okazy', methods=['GET', 'POST'])
