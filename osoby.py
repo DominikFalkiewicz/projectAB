@@ -29,6 +29,9 @@ class Osoby:
             elif form_button[:3] == "aar":
                 session["rid"] = form_button[3:]
                 return redirect("/osoby/artykuly")
+            elif form_button[:3] == "aok":
+                session["rid"] = form_button[3:]
+                return redirect("/osoby/okazy")
 
         rekordy = self.baza.ask("SELECT osoba.id, imie, nazwisko, stopien_naukowy, nazwa "
                                 "FROM osoba LEFT JOIN uczelnia ON id_uczelnia = uczelnia.id ORDER BY nazwisko")
@@ -191,3 +194,42 @@ class Osoby:
 
     def delete_artykul(self, sid):
         self.baza.exe("DELETE FROM autor WHERE id = " + sid)
+
+    def render_okazy(self):
+        rid = session["rid"]
+        if request.method == "POST":
+            form_button = request.form["button"]
+            if form_button[0] == "c":
+                return redirect("/osoby/okazy/add")
+            elif form_button[0] == "d":
+                self.delete_okaz(form_button[1:])
+
+        rekordy = self.baza.ask("SELECT odkrywca.id, identyfikator, nazwa "
+                                "FROM odkrywca INNER JOIN okaz ON id_okaz = okaz.id "
+                                "LEFT JOIN kolekcja ON id_kolekcja = kolekcja.id "
+                                "WHERE id_osoba = " + rid + " ORDER BY nazwa")
+        return render_template("osoby_okazy.html", rekordy=rekordy)
+
+    def render_okazy_add(self):
+        rid = session["rid"]
+        if request.method == "POST":
+            form_button = request.form["button"]
+            if form_button == "zatwierdz":
+                id_okaz = request.form["okazy_wybor"]
+                self.create_okaz(rid, id_okaz)
+                return redirect("/osoby/okazy")
+            if form_button == "anuluj":
+                return redirect("/osoby/okazy")
+
+        okazy = self.baza.ask("SELECT okaz.id, identyfikator || ' w: ' || nazwa "
+                              "FROM okaz LEFT JOIN kolekcja ON id_kolekcja = kolekcja.id "
+                              "WHERE okaz.id NOT IN "
+                              "(SELECT id_okaz FROM odkrywca WHERE id_osoba = " + rid + ") ORDER BY nazwa")
+        return render_template("add_osoby_okazy.html", okazy=okazy)
+
+    def create_okaz(self, rid, id_okaz):
+        self.baza.exe("INSERT INTO odkrywca (id_osoba, id_okaz) VALUES (" + rid + ", " + id_okaz + ")")
+
+    def delete_okaz(self, sid):
+        self.baza.exe("DELETE FROM odkrywca WHERE id = " + sid)
+
