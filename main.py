@@ -163,16 +163,6 @@ def update_adresy():
     return adresy_handler.render_update()
 
 
-@app.route('/artykuly/okazy', methods=['GET', 'POST'])
-def okazy_artykuly():
-    return artykuly_handler.render_okazy()
-
-
-@app.route('/artykuly/okazy/add', methods=['GET', 'POST'])
-def add_okazy_artykuly():
-    return artykuly_handler.render_okazy_add()
-
-
 @app.route('/klady', methods=['GET', 'POST'])
 def klady():
     return klady_handler.render()
@@ -231,6 +221,26 @@ def read_artykuly():
 @app.route('/artykuly/update', methods=['GET', 'POST'])
 def update_artykuly():
     return artykuly_handler.render_update()
+
+
+@app.route('/artykuly/okazy', methods=['GET', 'POST'])
+def okazy_artykuly():
+    return artykuly_handler.render_okazy()
+
+
+@app.route('/artykuly/okazy/add', methods=['GET', 'POST'])
+def add_okazy_artykuly():
+    return artykuly_handler.render_okazy_add()
+
+
+@app.route('/artykuly/osoby', methods=['GET', 'POST'])
+def osoby_artykuly():
+    return artykuly_handler.render_osoby()
+
+
+@app.route('/artykuly/osoby/add', methods=['GET', 'POST'])
+def add_osoby_artykuly():
+    return artykuly_handler.render_osoby_add()
 
 
 @app.route('/numery', methods=['GET', 'POST'])

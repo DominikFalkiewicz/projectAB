@@ -27,6 +27,7 @@
                 <th></th>
                 <th></th>
                 <th></th>
+                <th></th>
                 <th> Tytuł </th>
                 <th> Czasopismo </th>
             </tr>
@@ -50,6 +51,11 @@
                     <td>
                         <form action="" method="post">
                             <button type="submit" name="button" value="aok{{ row[0] }}">Okazy</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="" method="post">
+                            <button type="submit" name="button" value="aos{{ row[0] }}">Autorzy</button>
                         </form>
                     </td>
                     <td>{{ row[1] }}</td>

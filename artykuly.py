@@ -30,6 +30,9 @@ class Artykuly:
             elif form_button[:3] == "aok":
                 session["rid"] = form_button[3:]
                 return redirect("/artykuly/okazy")
+            elif form_button[:3] == "aos":
+                session["rid"] = form_button[3:]
+                return redirect("/artykuly/osoby")
 
         rekordy = self.baza.ask("SELECT artykul.id, artykul.tytul, czasopismo.tytul FROM artykul "
                                 "INNER JOIN numer ON id_numer = numer.id "
@@ -154,3 +157,39 @@ class Artykuly:
 
     def delete_okaz(self, sid):
         self.baza.exe("DELETE FROM wspomina WHERE id = " + sid)
+
+    def render_osoby(self):
+        rid = session["rid"]
+        if request.method == "POST":
+            form_button = request.form["button"]
+            if form_button[0] == "c":
+                return redirect("/artykuly/osoby/add")
+            elif form_button[0] == "d":
+                self.delete_osoba(form_button[1:])
+
+        rekordy = self.baza.ask("SELECT autor.id, imie, nazwisko, stopien_naukowy FROM autor "
+                                "INNER JOIN osoba ON id_osoba = osoba.id "
+                                "WHERE id_artykul = " + rid + " ORDER BY nazwisko")
+        return render_template("artykuly_osoby.html", rekordy=rekordy)
+
+    def render_osoby_add(self):
+        rid = session["rid"]
+        if request.method == "POST":
+            form_button = request.form["button"]
+            if form_button == "zatwierdz":
+                id_osoba = request.form["osoby_wybor"]
+                self.create_osoba(rid, id_osoba)
+                return redirect("/artykuly/osoby")
+            if form_button == "anuluj":
+                return redirect("/artykuly/osoby")
+
+        osoby = self.baza.ask("SELECT id, COALESCE(stopien_naukowy || '. ', '') || imie || ' ' || nazwisko FROM osoba "
+                              "WHERE id NOT IN (SELECT id_osoba FROM autor WHERE id_artykul = " + rid + ")")
+        print(osoby)
+        return render_template("add_artykuly_osoby.html", osoby=osoby)
+
+    def create_osoba(self, rid, id_osoba):
+        self.baza.exe("INSERT INTO autor (id_artykul, id_osoba) VALUES (" + rid + ", " + id_osoba + ")")
+
+    def delete_osoba(self, sid):
+        self.baza.exe("DELETE FROM autor WHERE id = " + sid)
