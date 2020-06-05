@@ -1,4 +1,5 @@
 from baza import Baza
+from baza_kont import BazaKont
 from menu import Menu
 from osoby import Osoby
 from okazy import Okazy
@@ -10,9 +11,10 @@ from numery import Numery
 from czasopisma import Czasopisma
 from stanowiska import Stanowiska
 from kolekcje import Kolekcje
-from flask import Flask
+from flask import Flask, render_template, request, redirect, session
 
 path_db = "baza.db"
+path_adb = "baza_kont.db"
 path_menu = "menu.html"
 path_osoby = "osoby.html"
 path_okazy = "okazy.html"
@@ -31,6 +33,12 @@ baza.drop()
 baza.create()
 baza.insert()
 
+baza_kont = BazaKont(path_adb)
+
+baza_kont.drop()
+baza_kont.create()
+baza_kont.insert()
+
 menu_handler = Menu(baza, path_menu)
 osoby_handler = Osoby(baza, path_osoby)
 okazy_handler = Okazy(baza, path_okazy)
@@ -48,7 +56,24 @@ app.secret_key = '1234567890'
 app.config['SESSION_TYPE'] = 'filesystem'
 
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
+def main():
+    if request.method == "POST":
+        form_button = request.form["button"]
+        if form_button[0] == "l":
+            konta = baza_kont.ask("SELECT login, haslo, dostep FROM osoba")
+            podany_login = request.form["log"]
+            podane_haslo = request.form["pas"]
+            for k in konta:
+                if k[0] == podany_login and k[1] == podane_haslo:
+                    session["acc"] = str(k[2])
+                    return redirect("/menu")
+            return render_template("login.html", err=1)
+
+    return render_template("login.html", err=0)
+
+
+@app.route('/menu', methods=['GET', 'POST'])
 def menu():
     return menu_handler.render()
 

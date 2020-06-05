@@ -1,0 +1,7 @@
+CREATE TABLE Osoba(
+	id INTEGER PRIMARY KEY,
+	login VARCHAR(30) CHECK(LENGTH(login) > 0) UNIQUE NOT NULL,
+	haslo VARCHAR(30) CHECK(LENGTH(haslo) >= 4) NOT NULL,
+	dostep INTEGER CHECK(dostep IN (1, 2, 3)) NOT NULL,
+	CHECK(dostep)
+);

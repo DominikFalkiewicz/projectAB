@@ -8,16 +8,17 @@ class Kolekcje:
 
     def render(self):
         if request.method == "POST":
+            acc = session["acc"]
             form_button = request.form["button"]
-            if form_button[0] == "c":
+            if form_button[0] == "c" and acc == "3":
                 return redirect("/kolekcje/create")
-            elif form_button[0] == "r":
+            elif form_button[0] == "r" and acc in ["2", "3"]:
                 session["rid"] = form_button[1:]
                 return redirect("/kolekcje/read")
-            elif form_button[0] == "u":
+            elif form_button[0] == "u" and acc == "3":
                 session["rid"] = form_button[1:]
                 return redirect("/kolekcje/update")
-            elif form_button[0] == "d":
+            elif form_button[0] == "d" and acc == "3":
                 self.delete(form_button[1:])
             elif form_button[0] == "s":
                 pat = request.form["pat"]

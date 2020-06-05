@@ -8,16 +8,17 @@ class Osoby:
 
     def render(self):
         if request.method == "POST":
+            acc = session["acc"]
             form_button = request.form["button"]
-            if form_button[0] == "c":
+            if form_button[0] == "c" and acc == "3":
                 return redirect("/osoby/create")
-            elif form_button[0] == "r":
+            elif form_button[0] == "r" and acc in ["2", "3"]:
                 session["rid"] = form_button[1:]
                 return redirect("/osoby/read")
-            elif form_button[0] == "u":
+            elif form_button[0] == "u" and acc == "3":
                 session["rid"] = form_button[1:]
                 return redirect("/osoby/update")
-            elif form_button[0] == "d":
+            elif form_button[0] == "d" and acc == "3":
                 self.delete(form_button[1:])
             elif form_button[0] == "s":
                 pat = request.form["pat"]
@@ -158,10 +159,11 @@ class Osoby:
     def render_artykuly(self):
         rid = session["rid"]
         if request.method == "POST":
+            acc = session["acc"]
             form_button = request.form["button"]
-            if form_button[0] == "c":
+            if form_button[0] == "c" and acc == "3":
                 return redirect("/osoby/artykuly/add")
-            elif form_button[0] == "d":
+            elif form_button[0] == "d" and acc == "3":
                 self.delete_artykul(form_button[1:])
 
         rekordy = self.baza.ask("SELECT autor.id, artykul.tytul, czasopismo.tytul || ' nr. ' || numer "
@@ -198,10 +200,11 @@ class Osoby:
     def render_okazy(self):
         rid = session["rid"]
         if request.method == "POST":
+            acc = session["acc"]
             form_button = request.form["button"]
-            if form_button[0] == "c":
+            if form_button[0] == "c" and acc == "3":
                 return redirect("/osoby/okazy/add")
-            elif form_button[0] == "d":
+            elif form_button[0] == "d" and acc == "3":
                 self.delete_okaz(form_button[1:])
 
         rekordy = self.baza.ask("SELECT odkrywca.id, identyfikator, nazwa "
@@ -232,4 +235,3 @@ class Osoby:
 
     def delete_okaz(self, sid):
         self.baza.exe("DELETE FROM odkrywca WHERE id = " + sid)
-

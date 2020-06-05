@@ -8,16 +8,17 @@ class Artykuly:
 
     def render(self):
         if request.method == "POST":
+            acc = session["acc"]
             form_button = request.form["button"]
-            if form_button[0] == "c":
+            if form_button[0] == "c" and acc == "3":
                 return redirect("/artykuly/create")
-            elif form_button[0] == "r":
+            elif form_button[0] == "r" and acc in ["2", "3"]:
                 session["rid"] = form_button[1:]
                 return redirect("/artykuly/read")
-            elif form_button[0] == "u":
+            elif form_button[0] == "u" and acc == "3":
                 session["rid"] = form_button[1:]
                 return redirect("/artykuly/update")
-            elif form_button[0] == "d":
+            elif form_button[0] == "d" and acc == "3":
                 self.delete(form_button[1:])
             elif form_button[0] == "s":
                 pat = request.form["pat"]
@@ -123,10 +124,11 @@ class Artykuly:
     def render_okazy(self):
         rid = session["rid"]
         if request.method == "POST":
+            acc = session["acc"]
             form_button = request.form["button"]
-            if form_button[0] == "c":
+            if form_button[0] == "c" and acc == "3":
                 return redirect("/artykuly/okazy/add")
-            elif form_button[0] == "d":
+            elif form_button[0] == "d" and acc == "3":
                 self.delete_okaz(form_button[1:])
 
         rekordy = self.baza.ask("SELECT wspomina.id, identyfikator, nazwa "
@@ -161,10 +163,11 @@ class Artykuly:
     def render_osoby(self):
         rid = session["rid"]
         if request.method == "POST":
+            acc = session["acc"]
             form_button = request.form["button"]
-            if form_button[0] == "c":
+            if form_button[0] == "c" and acc == "3":
                 return redirect("/artykuly/osoby/add")
-            elif form_button[0] == "d":
+            elif form_button[0] == "d" and acc == "3":
                 self.delete_osoba(form_button[1:])
 
         rekordy = self.baza.ask("SELECT autor.id, imie, nazwisko, stopien_naukowy FROM autor "

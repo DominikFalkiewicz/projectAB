@@ -8,16 +8,17 @@ class Okazy:
 
     def render(self):
         if request.method == "POST":
+            acc = session["acc"]
             form_button = request.form["button"]
-            if form_button[0] == "c":
+            if form_button[0] == "c" and acc == "3":
                 return redirect("/okazy/create")
-            elif form_button[0] == "r":
+            elif form_button[0] == "r" and acc in ["2", "3"]:
                 session["rid"] = form_button[1:]
                 return redirect("/okazy/read")
-            elif form_button[0] == "u":
+            elif form_button[0] == "u" and acc == "3":
                 session["rid"] = form_button[1:]
                 return redirect("/okazy/update")
-            elif form_button[0] == "d":
+            elif form_button[0] == "d" and acc == "3":
                 self.delete(form_button[1:])
             elif form_button[0] == "s":
                 pat = request.form["pat"]
@@ -202,10 +203,11 @@ class Okazy:
     def render_datowania(self):
         rid = session["rid"]
         if request.method == "POST":
+            acc = session["acc"]
             form_button = request.form["button"]
-            if form_button[0] == "c":
+            if form_button[0] == "c" and acc == "3":
                 return redirect("/okazy/datowania/create")
-            elif form_button[0] == "d":
+            elif form_button[0] == "d" and acc == "3":
                 self.delete_datowanie(form_button[1:])
 
         rekordy = self.baza.ask("SELECT id, data_wykonania, technika, wiek FROM datowanie "
@@ -237,10 +239,11 @@ class Okazy:
     def render_artykuly(self):
         rid = session["rid"]
         if request.method == "POST":
+            acc = session["acc"]
             form_button = request.form["button"]
-            if form_button[0] == "c":
+            if form_button[0] == "c" and acc == "3":
                 return redirect("/okazy/artykuly/add")
-            elif form_button[0] == "d":
+            elif form_button[0] == "d" and acc == "3":
                 self.delete_artykul(form_button[1:])
 
         rekordy = self.baza.ask("SELECT wspomina.id, artykul.tytul, czasopismo.tytul || ' nr. ' || numer "
@@ -277,10 +280,11 @@ class Okazy:
     def render_osoby(self):
         rid = session["rid"]
         if request.method == "POST":
+            acc = session["acc"]
             form_button = request.form["button"]
-            if form_button[0] == "c":
+            if form_button[0] == "c" and acc == "3":
                 return redirect("/okazy/osoby/add")
-            elif form_button[0] == "d":
+            elif form_button[0] == "d" and acc == "3":
                 self.delete_osoba(form_button[1:])
 
         rekordy = self.baza.ask("SELECT odkrywca.id, imie, nazwisko, stopien_naukowy FROM odkrywca "

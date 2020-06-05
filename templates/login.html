@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Logowanie</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/table.css') }}" media="screen">
+</head>
+<body>
+    <h1>Logowanie do Bazy Danych</h1>
+    <div class="sekcja">
+        <form action="" method="post">
+            <label for="log">Login:</label>
+            <input type="text" name="log" id="log" size="30" value=""/>
+            <label for="pas">Hasło:</label>
+            <input type="password" name="pas" id="pas" size="30" value=""/>
+            <button type="submit" name="button" value="l">Zaloguj Się</button>
+        </form>
+        {% if err == 1 %}
+            NIEPRAWIDŁOWY LOGIN LUB HASŁO!!!
+        {% endif %}
+    </div>
+</body>
+</html>
