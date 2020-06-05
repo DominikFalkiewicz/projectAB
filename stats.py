@@ -47,6 +47,9 @@ class Stats:
         ns = self.baza.ask("SELECT nazwa, COUNT(*) AS l FROM okaz INNER JOIN klad ON id_klad = klad.id "
                            "WHERE ranga = 'Gatunek' GROUP BY klad.id, nazwa ORDER BY l DESC LIMIT 1")[0]
         rekordy1.append(["Najczęstszy gatunek", ns[0] + ", " + str(ns[1]) + " okazów"])
+        nok = self.baza.ask("SELECT rodzaj.nazwa, COUNT(*) AS l FROM okaz INNER JOIN klad as gatunek ON id_klad = gatunek.id INNER JOIN klad as rodzaj ON gatunek.id_nadklad = rodzaj.id  AND rodzaj.ranga = 'Rodzaj'"
+                           "AND gatunek.ranga = 'Gatunek' GROUP BY rodzaj.id, rodzaj.nazwa ORDER BY l DESC LIMIT 1")[0]
+        rekordy1.append(["Najczęstszy rodzaj", nok[0] + ", " + str(nok[1]) + " okazów"])
 
         rekordy1.append(["", ""])
 
