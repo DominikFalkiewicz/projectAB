@@ -67,4 +67,12 @@ class Stats:
                            "GROUP BY stanowisko.id, nazwa ORDER BY l DESC LIMIT 1")[0]
         rekordy1.append(["Najzasobniejsze zbiorowisko", ns[0] + ", " + str(ns[1]) + " okazów"])
 
+        rekordy1.append(["", ""])
+
+        nc = self.baza.ask("SELECT czasopismo.tytul, COUNT(*) AS l FROM czasopismo "
+                           "INNER JOIN numer ON id_czasopismo = czasopismo.id "
+                           "INNER JOIN artykul ON id_numer = numer.id "
+                           "GROUP BY czasopismo.id, czasopismo.tytul ORDER BY l DESC LIMIT 1")[0]
+        rekordy1.append(["Najpopularniejsze czasopismo", nc[0] + ", " + str(nc[1]) + " artykułów"])
+
         return render_template(self.path, rekordy1=rekordy1)
