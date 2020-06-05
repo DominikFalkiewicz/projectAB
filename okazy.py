@@ -31,6 +31,9 @@ class Okazy:
             elif form_button[:3] == "adt":
                 session["rid"] = form_button[3:]
                 return redirect("/okazy/datowania")
+            elif form_button[:3] == "aar":
+                session["rid"] = form_button[3:]
+                return redirect("/okazy/artykuly")
 
         rekordy = self.baza.ask("SELECT okaz.id, identyfikator, pseudonim, klad.nazwa, kolekcja.nazwa "
                                 "FROM okaz LEFT JOIN kolekcja ON id_kolekcja = kolekcja.id "
@@ -206,9 +209,6 @@ class Okazy:
                                 "WHERE id_okaz = " + rid + " ORDER BY data_wykonania DESC")
         return render_template("datowania.html", rekordy=rekordy)
 
-    def delete_datowanie(self, sid):
-        self.baza.exe("DELETE FROM datowanie WHERE id = " + sid)
-
     def render_datowania_create(self):
         rid = session["rid"]
         if request.method == "POST":
@@ -227,3 +227,46 @@ class Okazy:
     def create_datowanie(self, rid, data_wykonania, technika, wiek):
         self.baza.exe("INSERT INTO datowanie (data_wykonania, technika, wiek, id_okaz) "
                       "VALUES ('" + data_wykonania + "', '" + technika + "', " + wiek + ", " + rid + ")")
+
+    def delete_datowanie(self, sid):
+        self.baza.exe("DELETE FROM datowanie WHERE id = " + sid)
+
+    def render_artykuly(self):
+        rid = session["rid"]
+        if request.method == "POST":
+            form_button = request.form["button"]
+            if form_button[0] == "c":
+                return redirect("/okazy/artykuly/add")
+            elif form_button[0] == "d":
+                self.delete_artykul(form_button[1:])
+
+        rekordy = self.baza.ask("SELECT wspomina.id, artykul.tytul, czasopismo.tytul || ' nr. ' || numer "
+                                "FROM wspomina INNER JOIN artykul ON id_artykul = artykul.id "
+                                "INNER JOIN numer ON id_numer = numer.id "
+                                "INNER JOIN czasopismo ON id_czasopismo = czasopismo.id "
+                                "WHERE id_okaz = " + rid + " ORDER BY czasopismo.tytul")
+        return render_template("okazy_artykuly.html", rekordy=rekordy)
+
+    def render_artykuly_add(self):
+        rid = session["rid"]
+        if request.method == "POST":
+            form_button = request.form["button"]
+            if form_button == "zatwierdz":
+                id_artykul = request.form["artykuly_wybor"]
+                self.create_artykul(rid, id_artykul)
+                return redirect("/okazy/artykuly")
+            if form_button == "anuluj":
+                return redirect("/okazy/artykuly")
+
+        artykuly = self.baza.ask("SELECT artykul.id, artykul.tytul || ' ' || czasopismo.tytul || ' nr. ' || numer "
+                                 "FROM artykul INNER JOIN numer ON id_numer = numer.id "
+                                 "INNER JOIN czasopismo ON id_czasopismo = czasopismo.id "
+                                 "WHERE artykul.id NOT IN "
+                                 "(SELECT id_artykul FROM wspomina WHERE id_okaz = " + rid + ")")
+        return render_template("add_okazy_artykuly.html", artykuly=artykuly)
+
+    def create_artykul(self, rid, id_artykul):
+        self.baza.exe("INSERT INTO wspomina (id_okaz, id_artykul) VALUES (" + rid + ", " + id_artykul + ")")
+
+    def delete_artykul(self, sid):
+        self.baza.exe("DELETE FROM wspomina WHERE id = " + sid)

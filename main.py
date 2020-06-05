@@ -103,6 +103,16 @@ def create_datowania_okazy():
     return okazy_handler.render_datowania_create()
 
 
+@app.route('/okazy/artykuly', methods=['GET', 'POST'])
+def artykuly_okazy():
+    return okazy_handler.render_artykuly()
+
+
+@app.route('/okazy/artykuly/add', methods=['GET', 'POST'])
+def add_artykuly_okazy():
+    return okazy_handler.render_artykuly_add()
+
+
 @app.route('/adresy', methods=['GET', 'POST'])
 def adresy():
     return adresy_handler.render()
