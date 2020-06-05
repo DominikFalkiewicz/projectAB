@@ -28,6 +28,9 @@ class Okazy:
                                         "OR klad.nazwa LIKE '%" + pat + "%' OR kolekcja.nazwa LIKE '%" + pat + "%' "
                                         "ORDER BY klad.nazwa")
                 return render_template(self.path, rekordy=rekordy)
+            elif form_button[:3] == "adt":
+                session["rid"] = form_button[3:]
+                return redirect("/okazy/datowania")
 
         rekordy = self.baza.ask("SELECT okaz.id, identyfikator, pseudonim, klad.nazwa, kolekcja.nazwa "
                                 "FROM okaz LEFT JOIN kolekcja ON id_kolekcja = kolekcja.id "
@@ -189,3 +192,38 @@ class Okazy:
 
     def delete(self, rid):
         self.baza.exe("DELETE FROM okaz WHERE id = " + rid)
+
+    def render_datowania(self):
+        rid = session["rid"]
+        if request.method == "POST":
+            form_button = request.form["button"]
+            if form_button[0] == "c":
+                return redirect("/okazy/datowania/create")
+            elif form_button[0] == "d":
+                self.delete_datowanie(form_button[1:])
+
+        rekordy = self.baza.ask("SELECT id, data_wykonania, technika, wiek FROM datowanie "
+                                "WHERE id_okaz = " + rid + " ORDER BY data_wykonania DESC")
+        return render_template("datowania.html", rekordy=rekordy)
+
+    def delete_datowanie(self, sid):
+        self.baza.exe("DELETE FROM datowanie WHERE id = " + sid)
+
+    def render_datowania_create(self):
+        rid = session["rid"]
+        if request.method == "POST":
+            form_button = request.form["button"]
+            if form_button == "zatwierdz":
+                data_wykonania = request.form["data"]
+                technika = request.form["technika"]
+                wiek = request.form["wiek"]
+                self.create_datowanie(rid, data_wykonania, technika, wiek)
+                return redirect("/okazy/datowania")
+            if form_button == "anuluj":
+                return redirect("/okazy/datowania")
+
+        return render_template("add_datowanie.html")
+
+    def create_datowanie(self, rid, data_wykonania, technika, wiek):
+        self.baza.exe("INSERT INTO datowanie (data_wykonania, technika, wiek, id_okaz) "
+                      "VALUES ('" + data_wykonania + "', '" + technika + "', " + wiek + ", " + rid + ")")

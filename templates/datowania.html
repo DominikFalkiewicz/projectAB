@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Skamieniałości - Okazy - Datowania</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/table.css') }}" media="screen">
+</head>
+<body>
+    <h1>Datowania</h1>
+    <ul>
+        <li><a href="{{ url_for('menu') }}">Menu</a></li>
+        <li><a href="{{ url_for('okazy') }}">Okazy</a></li>
+    </ul>
+    <div class="sekcja">
+        <form action="" method="post">
+            <button type="submit" name="button" value="c">Dodaj</button>
+        </form>
+    </div>
+    <div class="sekcja">
+        <table>
+            <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th> Data Wykonania </th>
+                <th> Technika </th>
+                <th> Wiek </th>
+            </tr>
+            {% for row in rekordy %}
+                <tr>
+                    <td>
+                        <form action="" method="post">
+                            <button type="submit" name="button" value="d{{ row[0] }}">Usuń</button>
+                        </form>
+                    </td>
+                    <td>{{ row[1] }}</td>
+                    <td>{{ row[2] }}</td>
+                    <td>{{ row[3] }} lat</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>

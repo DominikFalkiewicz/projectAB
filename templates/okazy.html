@@ -26,6 +26,7 @@
                 <th></th>
                 <th></th>
                 <th></th>
+                <th></th>
                 <th> Identyfikator </th>
                 <th> Pseudonim </th>
                 <th> Klad </th>
@@ -46,6 +47,11 @@
                     <td>
                         <form action="" method="post">
                             <button type="submit" name="button" value="r{{ row[0] }}">Pokaż</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="" method="post">
+                            <button type="submit" name="button" value="adt{{ row[0] }}">Datowania</button>
                         </form>
                     </td>
                     <td>{{ row[1] }}</td>
